@@ -1,0 +1,7 @@
+<h1>マイページ</h1>
+
+<%= attachment_image_tag(current_end_user, :image, fallback: "no-user-image-icon.jpg", size: "100x100" ) %>
+<%= current_end_user.name %>
+<%= current_end_user.introduction %>
+
+<%= link_to '編集', edit_end_users_path %>

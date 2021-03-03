@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resource :end_users, only:[:show, :edit, :update]
+  devise_for :end_users
+  root to: 'homes#top'
+  get 'about' => 'homes#about'
+
 end
