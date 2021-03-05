@@ -1,0 +1,18 @@
+<h1>公開スレッド一覧</h1>
+
+<div class="new">
+  <%= link_to new_topic_path do %>
+    <%= "スレッド作成" %>
+  <% end %>
+</div>
+
+<div class="list">
+  <table class="table-striped">
+    <% @topics.each do |topic| %>
+      <tr>
+        <td><%= attachment_image_tag topic.end_user, :image, fallback: "no_image.jpg", size: "60x60" %></td>
+        <td><%= link_to topic.title, topic_path(topic.id) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
