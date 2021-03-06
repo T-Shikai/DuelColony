@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  end_user_id: 1
+  room_id: 1
+  is_finish: false
+
+two:
+  end_user_id: 1
+  room_id: 1
+  is_finish: false

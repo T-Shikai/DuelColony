@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_143801) do
+ActiveRecord::Schema.define(version: 2021_03_06_144719) do
 
   create_table "end_users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2021_03_04_143801) do
     t.index ["reset_password_token"], name: "index_end_users_on_reset_password_token", unique: true
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "end_user_id", null: false
+    t.integer "room_id", null: false
+    t.text "content", null: false
+    t.boolean "is_deleted", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer "end_user_id", null: false
     t.integer "topic_id", null: false
@@ -38,12 +47,28 @@ ActiveRecord::Schema.define(version: 2021_03_04_143801) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "topics", force: :cascade do |t|
     t.integer "end_user_id", null: false
     t.text "title", null: false
     t.boolean "is_private", default: false
     t.boolean "is_deleted", default: false
     t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_rooms", force: :cascade do |t|
+    t.integer "end_user_id", null: false
+    t.integer "room_id", null: false
+    t.boolean "is_finish", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
