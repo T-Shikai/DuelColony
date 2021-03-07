@@ -1,7 +1,7 @@
 <h1>アカウント情報編集</h1>
 
 <div class="form">
-  <%= form_with model: current_end_user, url: end_users_path, local: true do |f| %>
+  <%= form_with model: current_end_user, url: end_user_path(current_end_user), local: true do |f| %>
     <div class="form-group row">
       <%= f.label :image, "アイコン画像", class: "col-md-3" %>
       <%= f.attachment_field :image, class: "col-md-8" %>

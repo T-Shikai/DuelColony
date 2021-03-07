@@ -1,5 +1,6 @@
 class EndUsersController < ApplicationController
   def show
+    @user = EndUser.find(params[:id])
   end
 
   def edit
@@ -8,7 +9,7 @@ class EndUsersController < ApplicationController
 
   def update
     if current_end_user.update(end_user_params)
-      redirect_to end_users_path
+      redirect_to end_user_path(current_end_user)
     else
       render :edit
     end
