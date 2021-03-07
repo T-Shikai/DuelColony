@@ -6,7 +6,9 @@ class EndUser < ApplicationRecord
 
   validates :name, presence: true
   attachment :image
-  
+
   has_many :topics
   has_many :posts
+  has_many :user_rooms
+  has_many :messages
 end

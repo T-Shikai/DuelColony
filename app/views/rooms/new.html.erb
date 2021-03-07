@@ -1,0 +1,21 @@
+<h1>対戦募集</h1>
+<div class="form">
+  <%= form_with model: @room, local: true do |f| %>
+    <div class="form-group row">
+      <%= f.label :title, "タイトル", class: "col-md-3" %>
+      <%= f.text_field :title, placeholder: "対戦お願いします！", class: "form-control col-md-8" %>
+    </div>
+    <div class="form-group row">
+      <%= f.label :content, "ルール・詳細", class: "col-md-3" %>
+      <%= f.text_area :content, class: "form-control col-md-8" %>
+    </div>
+    <div class="entry">
+      <%= fields_for @user_room do |e| %>
+        <%= e.hidden_field :end_user_id, :value => current_end_user.id %>
+      <% end %>
+    </div>
+    <div class="form-group col-md-12 text-center">
+      <%= f.submit "募集する", class: 'btn btn-success' %>
+    </div>
+  <% end %>
+</div>

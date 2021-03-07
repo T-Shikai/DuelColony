@@ -1,0 +1,11 @@
+<h1>対戦一覧</h1>
+<div class="new-room_id">
+  <%= link_to '対戦募集する', new_room_path %>
+</div>
+<div class="room-list">
+  <% @rooms.each do |room| %>
+    <% @entry = UserRoom.find_by(room_id: room.id) %>
+    <%= @entry.end_user.name %>
+    <%= room.title %>
+  <% end %>
+</div>
