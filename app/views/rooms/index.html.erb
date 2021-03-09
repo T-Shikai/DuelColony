@@ -5,7 +5,13 @@
 <div class="room-list">
   <% @rooms.each do |room| %>
     <% @entry = UserRoom.find_by(room_id: room.id) %>
+    <%= attachment_image_tag @entry.end_user, :image, fallback: "no_image.jpg", size: "60x60" %>
     <%= @entry.end_user.name %>
     <%= room.title %>
+    <% if @entry.end_user == current_end_user %>
+      <%= link_to '募集を取り消す', cancel_room_path(room), method: :post %>
+    <% else %>
+      対戦募集に応募する
+    <% end %>
   <% end %>
 </div>

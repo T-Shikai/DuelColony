@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   def index
-    @rooms = Room.all
+    @rooms = Room.where(status: 0)
 
   end
 
@@ -24,6 +24,14 @@ class RoomsController < ApplicationController
     else
       flash[:error] = '募集できませんでした'
       render :new
+    end
+  end
+
+  def cancel
+    @room = Room.find(params[:id])
+    if @room.update(status: 4)
+      flash[:error] = '募集を取り消しました'
+      redirect_to rooms_path
     end
   end
 
