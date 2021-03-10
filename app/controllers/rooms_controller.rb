@@ -22,7 +22,7 @@ class RoomsController < ApplicationController
         render :new
       end
     else
-      flash[:error] = '募集できませんでした'
+      flash[:error] = @room.errors.full_messages
       render :new
     end
   end
@@ -38,7 +38,7 @@ class RoomsController < ApplicationController
   private
 
   def room_params
-    params.require(:room).permit(:title, :content)
+    params.require(:room).permit(:title, :content).merge(host_id: current_end_user.id, guest_id: current_end_user.id)
   end
 
   def user_room_params

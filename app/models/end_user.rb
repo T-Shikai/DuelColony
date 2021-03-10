@@ -11,4 +11,6 @@ class EndUser < ApplicationRecord
   has_many :posts
   has_many :user_rooms
   has_many :messages
+  has_many :host, class_name: "Room", foreign_key: "host_id", dependent: :destroy
+  has_many :guest, class_name: "Room", foreign_key: "guest_id", dependent: :destroy
 end
