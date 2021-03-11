@@ -4,14 +4,38 @@
 </div>
 <div class="room-list">
   <% @rooms.each do |room| %>
-    <% host = EndUser.find_by(id: room.host_id) %>
-    <%= attachment_image_tag host, :image, fallback: "no_image.jpg", size: "60x60" %>
-    <%= host.name %>
+    <%= attachment_image_tag room.host, :image, fallback: "no_image.jpg", size: "60x60" %>
+    <%= room.host.name %>
     <%= room.title %>
-    <% if host == current_end_user %>
-      <%= link_to '募集を取り消す', cancel_room_path(room), method: :post %>
-    <% else %>
-      対戦募集に応募する
+    <% case room.status %>
+      <% when 0 %>
+        <% if room.host == current_end_user %>
+          募集中 <%= link_to '募集を取り消す', cancel_room_path(room), method: :post %>
+        <% else %>
+          <%= link_to '対戦募集に応募する', apply_room_path(room), method: :post %>
+        <% end %>
+      <% when 1 %>
+        <% if room.host == current_end_user %>
+          応募あり <%= link_to '承認', accept_room_path(room), method: :post %>/<%= link_to '却下', apply_room_path(room), method: :post %>
+        <% elsif room.guest == current_end_user %>
+          <%= link_to '応募をキャンセルする', apply_room_path(room), method: :post %>
+        <% else %>
+          募集終了
+        <% end %>
+      <% when 2 %>
+        <% if room.host == current_end_user || room.guest == current_end_user %>
+      　   対戦中 <%= link_to 'チャットへ', chat_room_path(room) %>
+      　<% else %>
+      　   募集終了
+      　<% end %>
+      <% when 3 %>
+      　対戦終了
+      <% when 5 %>
+      　<% if room.host == current_end_user || room.guest == current_end_user %>
+      　   対戦中断
+      　<% else %>
+      　   対戦終了
+      　<% end %>
     <% end %>
   <% end %>
 </div>

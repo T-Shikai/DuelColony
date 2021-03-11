@@ -10,23 +10,26 @@
 
 <h2>あなたの対戦</h2>
 
-<% @user.user_rooms.each do |entry| %>
-  <% room = entry.room %>
+<% @rooms.each do |room| %>
   <% if room.status != 4 %>
     <div class="room-info">
       <%= room.title %>
       <% case room.status %>
       <% when 0 %>
-        募集中　<%= link_to '募集を取り消す', cancel_room_path(room), method: :post %>
+        <% if room.host == current_end_user %>
+          募集中 <%= link_to '募集を取り消す', cancel_room_path(room), method: :post %>
+        <% else %>
+          対戦募集に応募する
+        <% end %>
       <% when 1 %>
         応募あり
       <% when 2 %>
-      　対戦中
+      　対戦中 対戦チャットへ
       <% when 3 %>
       　対戦終了
       <% when 5 %>
       　対戦中断
-      <% end %>
+    <% end %>
     </div>
   <% end %>
 <% end %>

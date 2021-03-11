@@ -1,7 +1,7 @@
 class EndUsersController < ApplicationController
   def show
     @user = EndUser.find(params[:id])
-  
+    @rooms = Room.where(host: @user)
   end
 
   def edit
