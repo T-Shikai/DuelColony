@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   post 'rooms/apply/:id' => 'rooms#apply', as: 'apply_room'
   post 'rooms/accept/:id' => 'rooms#accept', as: 'accept_room'
   get 'rooms/chat/:id' => 'rooms#chat', as: 'chat_room'
+  post 'rooms/finish/:id' => 'rooms#finish', as: 'finish_room'
   resources :rooms
+  resources :messages
   root to: 'homes#top'
   get 'about' => 'homes#about'
 

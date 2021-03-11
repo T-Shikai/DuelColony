@@ -21,7 +21,7 @@ class RoomsController < ApplicationController
         render :new
       end
     else
-      flash[:error] = @room.errors.full_messages
+      flash[:error] = '募集できませんでした'
       render :new
     end
   end
@@ -73,10 +73,32 @@ class RoomsController < ApplicationController
 
   def chat
     @room = Room.find(params[:id])
-    if @room.status != 2
+    if @room.status != 2 && @room.status != 3 && @room.status != 5
       redirect_to rooms_path
     else
+      @messages = @room.messages
+      @message = Message.new
     end
+  end
+
+  def finish
+    @room = Room.find(params[:id])
+    case @room.finishing
+    when 0
+      if @room.update(finishing: current_end_user.id)
+        redirect_to chat_room_path(@room)
+      end
+    when current_end_user.id
+      if @room.update(finishing: 0)
+        redirect_to chat_room_path(@room)
+      end
+    else
+      #両者が合意すると対戦終了
+      if @room.update(status: 3)
+        redirect_to rooms_path
+      end
+    end
+
   end
 
   private

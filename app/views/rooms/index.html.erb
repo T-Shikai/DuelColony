@@ -4,7 +4,7 @@
 </div>
 <div class="room-list">
   <% @rooms.each do |room| %>
-    <%= attachment_image_tag room.host, :image, fallback: "no_image.jpg", size: "60x60" %>
+    <%= attachment_image_tag room.host, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
     <%= room.host.name %>
     <%= room.title %>
     <% case room.status %>
@@ -29,10 +29,14 @@
       　   募集終了
       　<% end %>
       <% when 3 %>
-      　対戦終了
+      　<% if room.host == current_end_user || room.guest == current_end_user %>
+      　   対戦終了<%= link_to 'チャットログへ', chat_room_path(room) %>
+      　<% else %>
+      　   対戦終了
+      　<% end %>
       <% when 5 %>
       　<% if room.host == current_end_user || room.guest == current_end_user %>
-      　   対戦中断
+      　   対戦中断 <%= link_to 'チャットログへ', chat_room_path(room) %>
       　<% else %>
       　   対戦終了
       　<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_142526) do
+ActiveRecord::Schema.define(version: 2021_03_11_042830) do
 
   create_table "books", force: :cascade do |t|
     t.integer "end_user_id", null: false
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_142526) do
     t.datetime "updated_at", null: false
     t.integer "host_id"
     t.integer "guest_id"
-    t.integer "finishing"
+    t.integer "finishing", default: 0
   end
 
   create_table "topics", force: :cascade do |t|
