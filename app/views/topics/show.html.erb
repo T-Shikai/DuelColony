@@ -1,26 +1,61 @@
 <h2><%= @topic.title %></h2>
+<div class="book-mark">
+  <% if Book.find_by(end_user: current_end_user, topic: @topic) %>
+    <%= link_to topic_books_path(@topic), method: :delete, local: true do %>
+      <i class="fas fa-star"></i>
+    <% end %>
+  <% else %>
+    <%= link_to topic_books_path(@topic), method: :post, local: true do %>
+      <i class="far fa-star"></i>
+    <% end %>
+  <% end %>
+  <% if @topic.books.count != 0 %>
+    <%= @topic.books.count %>
+  <% end %>
+</div>
 <%= link_to 'スレッド一覧へ', topics_path %>
 <div class="list">
   <table>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= attachment_image_tag post.end_user, :image, fallback: "no_image.jpg", size: "60x60" %></td>
+        <td><%= attachment_image_tag post.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %></td>
         <td><%= @post_num %></td>
-        <td>
-          <% case post.status %>
-          <% when 0 %>
-            <%= post.content %>
-          <% when 1 %>
+        <% case post.status %>
+        <% when 0 %>
+          <td><%= post.content %></td>
+          <td>
+            <div class="like-mark">
+              <% if Like.find_by(end_user: current_end_user, post: post) %>
+                <%= link_to post_likes_path(post), method: :delete, local: true do %>
+                  <i class="fas fa-heart"></i>
+                <% end %>
+              <% else %>
+                <%= link_to post_likes_path(post), method: :post, local: true do %>
+                  <i class="far fa-heart"></i>
+                <% end %>
+              <% end %>
+              <% if post.likes.count != 0 %>
+                <%= post.likes.count %>
+              <% end %>
+            </div>
+          </td>
+          <% if current_end_user == post.end_user %>
+            <td><%= link_to '削除', post_path(post), method: :patch %></td>
+          <% end %>
+        <% when 1 %>
+          <td>
             <div class="text-danger">
               <%= "この書き込みは管理者によって削除されました" %>
             </div>
-          <% when 2 %>
+          </td>
+        <% when 2 %>
+          <td>
             <div class="text-warning">
               <%= "この書き込みは投稿者によって削除されました" %>
             </div>
-          <% end %>
-        </td>
-        <td><%= link_to '削除', post_path(post), method: :patch %></td>
+          </td>
+        <% end %>
+
       </tr>
       <% @post_num += 1 %>
     <% end %>
