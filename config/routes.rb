@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   get 'rooms/chat/:id' => 'rooms#chat', as: 'chat_room'
   post 'rooms/finish/:id' => 'rooms#finish', as: 'finish_room'
   resources :rooms
-  resources :messages
+  resources :messages, only:[:create, :update]
+  resources :reports, only:[:new, :create]
   root to: 'homes#top'
   get 'about' => 'homes#about'
 

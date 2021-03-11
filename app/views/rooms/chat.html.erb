@@ -8,6 +8,7 @@
 <div class="chat">
   <div class="chat-messages">
     <% @messages.each do |message| %>
+      <%= attachment_image_tag message.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
       <%= message.end_user.name %>
       <% if message.is_deleted %>
         このメッセージは削除されました
