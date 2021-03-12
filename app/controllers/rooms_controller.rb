@@ -20,37 +20,36 @@ class RoomsController < ApplicationController
 
   def cancel
     @room = Room.find(params[:id])
+    @rooms = Room.where.not(status: 4)
     if @room.update(status: 4)
-      flash[:error] = '募集を取り消しました'
-      redirect_to rooms_path
+      render :cancel
     end
   end
 
   def apply
     @room = Room.find(params[:id])
+    @rooms = Room.where.not(status: 4)
     if @room.status == 0
       #ゲストによる応募時の処理
       if @room.update(status: 1, guest: current_end_user)
-        flash[:error] = '対戦募集に応募しました'
-        redirect_to rooms_path
+        render :apply
       end
     else
       #ゲストによる応募キャンセルの処理
       #ホストによる応募拒否の処理
       if @room.update(status: 0, guest: @room.host)
-        flash[:error] = '応募が取り消されました'
-        redirect_to rooms_path
+        render :apply
       end
     end
   end
 
   def accept
     @room = Room.find(params[:id])
+    @rooms = Room.where.not(status: 4)
     if @room.status == 1
       #ホストによる応募承諾の処理
       if @room.update(status: 2)
-        flash[:error] = '対戦チャットが作成されました。'
-        redirect_to rooms_path
+        render :accept
       end
     elsif @room.status == 2
       #チャットルーム内での対戦中断処理
@@ -78,11 +77,11 @@ class RoomsController < ApplicationController
     case @room.finishing
     when 0
       if @room.update(finishing: current_end_user.id)
-        redirect_to chat_room_path(@room)
+        render :finish
       end
     when current_end_user.id
       if @room.update(finishing: 0)
-        redirect_to chat_room_path(@room)
+        render :finish
       end
     else
       #両者が合意すると対戦終了

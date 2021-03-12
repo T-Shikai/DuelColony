@@ -11,14 +11,9 @@
 
 <div class="finishing">
   <% if @room.status == 2 %>
-    <% case @room.finishing %>
-    <% when 0 %>
-      <%= link_to '終了希望', finish_room_path(@room), method: :post %>
-    <% when current_end_user.id %>
-      <%= link_to '終了希望キャンセル', finish_room_path(@room), method: :post %>
-    <% else %>
-      <%= link_to '終了希望に同意', finish_room_path(@room), method: :post %>
-    <% end %>
+    <div class="finish-room">
+      <%= render 'rooms/finish-room', room: @room %>
+    </div>
     | <%= link_to '中断', accept_room_path(@room), method: :post %>
   <% end %>
 </div>

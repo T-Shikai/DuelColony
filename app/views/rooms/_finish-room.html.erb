@@ -1,0 +1,8 @@
+<% case room.finishing %>
+<% when 0 %>
+  <%= link_to '終了希望', finish_room_path(room), method: :post, remote: true %>
+<% when current_end_user.id %>
+  <%= link_to '終了希望キャンセル', finish_room_path(room), method: :post, remote: true %>
+<% else %>
+  <%= link_to '終了希望に同意', finish_room_path(room), method: :post %>
+<% end %>

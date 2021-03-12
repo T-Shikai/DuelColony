@@ -6,22 +6,26 @@
       このメッセージは削除されました
     <% else %>
       <%= message.content %>
-      <%= link_to '削除', message_path(message), method: :patch, remote: true %>
+      <% if current_end_user == message.end_user %>
+        <%= link_to '削除', message_path(message), method: :patch, remote: true %>
+      <% end %>
     <% end %> <br />
   <% end %>
 </div>
 <div class="send-message">
-  <%= form_with model: message, url: messages_path, method: :post, remote: true do |f| %>
-    <div class="form-group row">
-      <%= f.label :メッセージ, class: "col-md-1" %>
-      <%= f.text_area :content, class: "form-control col-md-8" %>
-    </div>
-    <div>
-      <%= f.hidden_field :room_id, :value => room.id %>
-      <%= f.hidden_field :end_user_id, :value => current_end_user.id %>
-    </div>
-    <div class="form-group col-md-12 text-center">
-      <%= f.submit "送信", class: 'btn btn-success' %>
-    </div>
+  <% if room.status == 2 %>
+    <%= form_with model: message, url: messages_path, method: :post, remote: true do |f| %>
+      <div class="form-group row">
+        <%= f.label :メッセージ, class: "col-md-1" %>
+        <%= f.text_area :content, class: "form-control col-md-8" %>
+      </div>
+      <div>
+        <%= f.hidden_field :room_id, :value => room.id %>
+        <%= f.hidden_field :end_user_id, :value => current_end_user.id %>
+      </div>
+      <div class="form-group col-md-12 text-center">
+        <%= f.submit "送信", class: 'btn btn-success' %>
+      </div>
+    <% end %>
   <% end %>
 </div>
