@@ -1,0 +1,2 @@
+$('.chat').html("<%= j(render 'messages/message', room: @room, messages: @messages, message: @message) %>");
+$(".text_area").val("");

@@ -1,0 +1,52 @@
+<div class="post-list">
+  <table>
+    <% posts.each do |post| %>
+      <tr>
+        <td><%= attachment_image_tag post.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %></td>
+        <td><%= post_num %></td>
+        <% case post.status %>
+        <% when 0 %>
+          <td><%= post.content %></td>
+          <td>
+            <div class="like-mark-<%= post.id %>">
+              <%= render 'likes/like', post: post %>
+            </div>
+          </td>
+          <% if current_end_user == post.end_user %>
+            <td><%= link_to '削除', post_path(post), method: :patch, remote: true %></td>
+          <% end %>
+        <% when 1 %>
+          <td>
+            <div class="text-danger">
+              <%= "この書き込みは管理者によって削除されました" %>
+            </div>
+          </td>
+        <% when 2 %>
+          <td>
+            <div class="text-warning">
+              <%= "この書き込みは投稿者によって削除されました" %>
+            </div>
+          </td>
+        <% end %>
+      </tr>
+      <% post_num += 1 %>
+    <% end %>
+  </table>
+</div>
+<div class="new-post">
+  <%= form_with model: post, url: posts_path, method: :post, remote: true do |f| %>
+    <div class="form-group row">
+      <%= f.text_area :content, placeholder: "書き込み内容", class: "form-control col-md-8" %>
+    </div>
+    <div class="form-group row">
+      <%= f.label :image, "投稿画像", class: "col-md-3" %>
+      <%= f.attachment_field :image, class: "col-md-8" %>
+    </div>
+    <div>
+      <%= f.hidden_field :topic_id, :value => topic.id %>
+    </div>
+    <div class="form-group col-md-12 text-center">
+      <%= f.submit "書き込む", class: 'btn btn-success' %>
+    </div>
+  <% end %>
+</div>

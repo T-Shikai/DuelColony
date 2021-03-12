@@ -1,0 +1,2 @@
+$('.book-mark').html("<%= j(render 'books/book', topic: @topic) %>");
+$('.book-mark-<%= @topic.id %>').html("<%= j(render 'books/book', topic: @topic) %>");

@@ -1,0 +1,12 @@
+<% if Like.find_by(end_user: current_end_user, post: post) %>
+  <%= link_to post_likes_path(post), method: :delete, remote: true do %>
+    <i class="fas fa-heart"></i>
+  <% end %>
+<% else %>
+  <%= link_to post_likes_path(post), method: :post, remote: true do %>
+    <i class="far fa-heart"></i>
+  <% end %>
+<% end %>
+<% if post.likes.count != 0 %>
+  <%= post.likes.count %>
+<% end %>
