@@ -1,6 +1,15 @@
 class TopicsController < ApplicationController
   def index
-    @topics = Topic.where(is_private: false)
+    case params[:sort]
+    when "0"
+      @topics = Topic.where(is_private: false).sort{|a,b| b.id <=> a.id}
+    when "1"
+      @topics = Topic.where(is_private: false).sort{|a,b| b.posts.count <=> a.posts.count}
+    when "2"
+      @topics = Topic.where(is_private: false).sort{|a,b| b.books.count <=> a.books.count}
+    else
+      @topics = Topic.where(is_private: false).sort{|a,b| b.id <=> a.id}
+    end
   end
 
   def new
