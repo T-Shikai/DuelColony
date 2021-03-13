@@ -1,14 +1,14 @@
 <h1>公開スレッド一覧</h1>
 
 <div class="sort">
-  <%= form_with url: topics_path, method: :get do |f| %>
-    <%= f.select :sort, {"スレッド新着順": 0, "投稿数順": 1, "ブックマーク数順": 2} %>
-    <%= f.submit '表示順を変更' %>
+  <%= form_with url: topics_path, method: :get do %>
+    <%= select_tag('sort',options_for_select([["投稿新着順", "0"], ["投稿数順", "1"], ["ブックマーク数順", "2"]])) %>
+    <%= submit_tag('表示順を変更') %>
   <% end %>
 </div>
 
-<div class="for development">
-  <%= link_to "新着順にする", topics_path(sort: 0) %>
+<div class="sort for development">
+  <%= link_to "投稿新着順にする", topics_path(sort: 0) %>
   <%= link_to "投稿数順にする", topics_path(sort: 1) %>
   <%= link_to "ブックマーク数順にする", topics_path(sort: 2) %>
 </div>

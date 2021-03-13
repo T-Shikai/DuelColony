@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :end_users
   resources :end_users, only:[:show, :edit, :update]
-  post 'topics/sort' => 'topics#sort', as: 'topic'
   resources :topics do
     resource :books, only:[:create, :destroy]
   end

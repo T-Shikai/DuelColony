@@ -2,7 +2,7 @@
 <% if current_end_user %>
   メニュー
   <%= link_to "[掲示板]", topics_path(sort: 0) %>
-  <%= link_to "[対戦]", rooms_path %>
+  <%= link_to "[対戦]", rooms_path(devide: 0) %>
   [大会]
   <%= link_to "[問い合わせ]", new_report_path %>
 <% else %>

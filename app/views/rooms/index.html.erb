@@ -1,4 +1,10 @@
 <h1>対戦一覧</h1>
+<div class="devide">
+  <%= link_to '募集中', rooms_path(devide: 0) %>
+  <%= link_to '応募〜対戦中', rooms_path(devide: 1) %>
+  <%= link_to '対戦済み', rooms_path(devide: 2) %>
+  <%= link_to '自分が参加中！', rooms_path(devide: 3) %>
+</div>
 <div class="new-room_id">
   <%= link_to '対戦募集する', new_room_path %>
 </div>

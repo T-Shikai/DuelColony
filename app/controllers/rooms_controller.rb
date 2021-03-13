@@ -1,6 +1,17 @@
 class RoomsController < ApplicationController
   def index
-    @rooms = Room.where.not(status: 4)
+    case params[:devide]
+    when "0"
+      @rooms = Room.where(status: 0).order('id desc')
+    when "1"
+      @rooms = Room.where(status: [1,2]).order('id desc')
+    when "2"
+      @rooms = Room.where(status: [3,5]).order('id desc')
+    when "3"
+      @rooms = Room.where(status: [0,1,2]).where('host_id = ? or guest_id = ?', current_end_user, current_end_user).order('id desc')
+    else
+      @rooms = Room.where(status: 0).order('id desc')
+    end
   end
 
   def new
