@@ -1,3 +1,12 @@
+<div class="show-only-new">
+  <% if topic.posts.count > 10 %>
+    <% if posts.count == 10 %>
+      最新10件の投稿のみ表示中：<%= link_to '投稿を全て表示', topic_path(topic.id, new_posts: 1) %>
+    <% else %>
+      <%= link_to '最新10件の投稿のみ表示する', topic_path(topic.id, new_posts: 0) %>
+    <% end %>
+  <% end %>
+</div>
 <div class="post-list">
   <table>
     <% posts.each do |post| %>
@@ -7,10 +16,15 @@
             <%= attachment_image_tag post.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
           <% end %>
         </td>
-        <td><%= post_num %></td>
+        <td><%= topic.posts.where("id <= ?", post.id).count %></td>
         <% case post.status %>
         <% when 0 %>
           <td><%= post.content %></td>
+          <td>
+            <% if post.image %>
+              <%= attachment_image_tag post, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
+            <% end %>
+          </td>
           <td>
             <div class="like-mark-<%= post.id %>">
               <%= render 'likes/like', post: post %>
@@ -33,24 +47,30 @@
           </td>
         <% end %>
       </tr>
-      <% post_num += 1 %>
     <% end %>
   </table>
 </div>
 <div class="new-post">
-  <%= form_with model: post, url: posts_path, method: :post, remote: true do |f| %>
-    <div class="form-group row">
-      <%= f.text_area :content, placeholder: "書き込み内容", class: "form-control col-md-8" %>
-    </div>
-    <div class="form-group row">
-      <%= f.label :image, "投稿画像", class: "col-md-3" %>
-      <%= f.attachment_field :image, class: "col-md-8" %>
-    </div>
-    <div>
-      <%= f.hidden_field :topic_id, :value => topic.id %>
-    </div>
-    <div class="form-group col-md-12 text-center">
-      <%= f.submit "書き込む", class: 'btn btn-success' %>
+  <% if posts.count < 200 %>
+    <%= form_with model: post, url: posts_path, method: :post, remote: true do |f| %>
+      <div class="form-group row">
+        <%= f.text_area :content, placeholder: "書き込み内容", class: "form-control col-md-8" %>
+      </div>
+      <div class="form-group row">
+        <%= f.label :image, "投稿画像", class: "col-md-3" %>
+        <%= f.attachment_field :image, class: "col-md-8" %>
+      </div>
+      <div>
+        <%= f.hidden_field :topic_id, :value => topic.id %>
+      </div>
+      <div class="form-group col-md-12 text-center">
+        <%= f.submit "書き込む", class: 'btn btn-success' %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="max-posts text-danger">
+      投稿数が200に達したためこれ以上投稿できません。<br />
+      新しいスレッドを作成してください
     </div>
   <% end %>
 </div>

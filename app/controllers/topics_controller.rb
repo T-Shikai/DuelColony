@@ -39,9 +39,15 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
-    @posts = @topic.posts
-    @post_num = 1
     @post = Post.new
+    case params[:new_posts]
+    when "0"
+      @posts = @topic.posts.order("id desc").limit(10).sort{|a,b| a.id <=> b.id}
+    when "1"
+      @posts = @topic.posts
+    else
+      @posts = @topic.posts.order("id desc").limit(10).sort{|a,b| a.id <=> b.id}
+    end
   end
 
   private

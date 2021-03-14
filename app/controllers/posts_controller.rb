@@ -2,11 +2,10 @@ class PostsController < ApplicationController
   def create
     post = Post.new(post_params)
     @topic = post.topic
-    @posts = @topic.posts
-    @post_num = 1
     @post = Post.new
     post.end_user = current_end_user
     if post.save
+      @posts = @topic.posts.order("id desc").limit(10).sort{|a,b| a.id <=> b.id}
       render :index
     else
       flash[:error] = '書き込み失敗'

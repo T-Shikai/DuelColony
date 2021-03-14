@@ -2,7 +2,7 @@
 <div class="book-mark">
   <%= render 'books/book', topic: @topic %>
 </div>
-<%= link_to 'スレッド一覧へ', topics_path %>
+<%= link_to 'スレッド一覧へ戻る', topics_path %>
 <div class="posts">
-  <%= render 'posts/post', topic: @topic, posts: @posts, post: @post, post_num: @post_num %>
+  <%= render 'posts/post', topic: @topic, posts: @posts, post: @post %>
 </div>
