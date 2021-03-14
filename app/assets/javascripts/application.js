@@ -15,3 +15,11 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+const $doc = document;
+const $hist = $doc.getElementsByClassName("my-content");
+
+const init = () => {
+  $hist[0].style.display = "none";
+};
+init();

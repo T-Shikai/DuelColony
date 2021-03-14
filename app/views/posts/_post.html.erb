@@ -2,7 +2,11 @@
   <table>
     <% posts.each do |post| %>
       <tr>
-        <td><%= attachment_image_tag post.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %></td>
+        <td>
+          <%= link_to end_user_path(post.end_user) do %>
+            <%= attachment_image_tag post.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
+          <% end %>
+        </td>
         <td><%= post_num %></td>
         <% case post.status %>
         <% when 0 %>

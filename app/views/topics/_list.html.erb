@@ -1,0 +1,14 @@
+<tr>
+  <td>
+    <%= link_to end_user_path(topic.end_user) do %>
+      <%= attachment_image_tag topic.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
+    <% end %>
+  </td>
+  <td><%= link_to topic.title, topic_path(topic.id) %></td>
+  <td>(<%= topic.posts.count %>)</td>
+  <td>
+    <div class="book-mark-<%= topic.id %>">
+      <%= render 'books/book', topic: topic %>
+    </div>
+  </td>
+</tr>

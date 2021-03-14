@@ -1,53 +1,44 @@
-<h1>マイページ</h1>
-
-<%= attachment_image_tag(@user, :image, fallback: "no-user-image-icon.jpg", size: "100x100" ) %>
-<%= @user.name %>
-<%= @user.introduction %>
-
-<% if @user = current_end_user %>
-  <%= link_to '編集', edit_end_user_path(@user) %>
-<% end %>
-
-<h2>あなたの対戦</h2>
-
-<% @rooms.each do |room| %>
-  <% if room.status != 4 %>
-    <div class="room-info">
-      <%= room.title %>
-      <% case room.status %>
-      <% when 0 %>
-        <% if room.host == current_end_user %>
-          募集中 <%= link_to '募集を取り消す', cancel_room_path(room), method: :post %>
-        <% else %>
-          対戦募集に応募する
-        <% end %>
-      <% when 1 %>
-        応募あり
-      <% when 2 %>
-      　対戦中 対戦チャットへ
-      <% when 3 %>
-      　対戦終了
-      <% when 5 %>
-      　対戦中断
-    <% end %>
-    </div>
+<div class="mypage">
+  <h1>
+    <%= attachment_image_tag(@user, :image, fallback: "no-user-image-icon.jpg", size: "100x100" ) %>
+    <%= @user.name %> のマイページ
+  </h1>
+  <% if @user == current_end_user %>
+    <%= link_to '編集', edit_end_user_path(@user) %>
   <% end %>
-<% end %>
+</div>
 
-<h2>ブックマークしたスレッド</h2>
-<div class="list">
-  <table class="table-striped">
-    <% @books.each do |book| %>
-      <% topic = book.topic %>
-      <tr>
-        <td><%= attachment_image_tag topic.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %></td>
-        <td><%= link_to topic.title, topic_path(topic.id) %></td>
-        <td>
-          <div class="book-mark-<%= topic.id %>">
-            <%= render 'books/book', topic: topic %>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+<div class="introduction">
+  <%= @user.introduction %>
+</div>
+
+<div class="mypage-tab">
+  <div class="my-tab-nav">
+    <a href="" class="my-nav-item is-active" data-nav="0"></a>
+    <a href="" class="my-nav-item" data-nav="1"></a>
+    <a href="" class="my-nav-item" data-nav="2"></a>
+  </div>
+  <div class="my-tab-contents">
+    <div class="room-history my-content">
+      <h2>対戦履歴</h2>
+      <%= render 'rooms/room-list', rooms: @rooms %>
+    </div>
+    <div class="my-topics my-content">
+      <h2>作成したスレッド</h2>
+      <table class="table-striped">
+        <% @topics.each do |topic| %>
+          <%= render 'topics/list', topic: topic %>
+        <% end %>
+        </table>
+    </div>
+    <div class="book-topics my-content">
+      <h2>ブックマークしたスレッド</h2>
+      <table class="table-striped">
+        <% @books.each do |book| %>
+          <% topic = book.topic %>
+          <%= render 'topics/list', topic: topic %>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>

@@ -1,7 +1,8 @@
 class EndUsersController < ApplicationController
   def show
     @user = EndUser.find(params[:id])
-    @rooms = @user.host
+    @rooms = Room.where(status: [3,5]).where('host_id = ? or guest_id = ?', current_end_user, current_end_user).order('id desc')
+    @topics = @user.topics
     @books = @user.books
   end
 
