@@ -29,6 +29,7 @@
         <% @topics.each do |topic| %>
           <%= render 'topics/list', topic: topic %>
         <% end %>
+        <%= paginate @topics %>
         </table>
     </div>
     <div class="book-topics my-content">
@@ -38,6 +39,7 @@
           <% topic = book.topic %>
           <%= render 'topics/list', topic: topic %>
         <% end %>
+        <%= paginate @books %>
       </table>
     </div>
   </div>

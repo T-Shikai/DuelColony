@@ -1,9 +1,9 @@
 class EndUsersController < ApplicationController
   def show
     @user = EndUser.find(params[:id])
-    @rooms = Room.where(status: [3,5]).where('host_id = ? or guest_id = ?', current_end_user, current_end_user).order('id desc')
-    @topics = @user.topics
-    @books = @user.books
+    @rooms = Room.page(params[:page]).per(10).where(status: [3,5]).where('host_id = ? or guest_id = ?', current_end_user, current_end_user).order('id desc')
+    @topics = @user.topics.page(params[:page]).per(10)
+    @books = @user.books.page(params[:page]).per(10)
   end
 
   def edit

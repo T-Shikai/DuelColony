@@ -2,14 +2,15 @@ class TopicsController < ApplicationController
   def index
     case params[:sort]
     when "0"
-      @topics = Topic.where(is_private: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
+      sorted_topics = Topic.where(is_private: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
     when "1"
-      @topics = Topic.where(is_private: false).sort{|a,b| b.posts.count <=> a.posts.count}
+      sorted_topics = Topic.where(is_private: false).sort{|a,b| b.posts.count <=> a.posts.count}
     when "2"
-      @topics = Topic.where(is_private: false).sort{|a,b| b.books.count <=> a.books.count}
+      sorted_topics = Topic.where(is_private: false).sort{|a,b| b.books.count <=> a.books.count}
     else
-      @topics = Topic.where(is_private: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
+      sorted_topics = Topic.where(is_private: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
     end
+    @topics = Kaminari.paginate_array(sorted_topics).page(params[:page]).per(10)
   end
 
   def new

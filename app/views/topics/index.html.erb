@@ -24,5 +24,6 @@
     <% @topics.each do |topic| %>
       <%= render 'topics/list', topic: topic %>
     <% end %>
+    <%= paginate @topics %>
   </table>
 </div>

@@ -54,7 +54,7 @@
   <% if posts.count < 200 %>
     <%= form_with model: post, url: posts_path, method: :post, remote: true do |f| %>
       <div class="form-group row">
-        <%= f.text_area :content, placeholder: "書き込み内容", class: "form-control col-md-8" %>
+        <%= f.text_area :content, placeholder: "1つのスレッドに投稿できるのは200件までです。", class: "form-control col-md-8" %>
       </div>
       <div class="form-group row">
         <%= f.label :image, "投稿画像", class: "col-md-3" %>
