@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :admins, controllers: {
+    sessions: 'admins/sessions'
+  }
   devise_for :end_users
   resources :end_users, only:[:show, :edit, :update]
   resources :topics do
