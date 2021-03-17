@@ -19,6 +19,13 @@
       <% end %>
       <br>-------ヘッダー--------
     </div>
+    <div class="admins">
+      <% if admin_signed_in? %>
+        <%= link_to '管理者ログアウト', destroy_admin_session_path, method: :delete %>
+      <% else %>
+        <%= link_to '管理者ログイン', new_admin_session_path %>
+      <% end %>
+    </div>
     <div class="flash text-success">
       <% if flash[:error] %>
         <%= flash[:error] %>
