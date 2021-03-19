@@ -1,8 +1,19 @@
-<h2><%= @topic.title %></h2>
-<div class="book-mark">
-  <%= render 'books/book', topic: @topic %>
+<div class="container">
+  <div class="row">
+    <h1><%= @topic.title %></h1>
+    <div class="ml-4 book-mark d-flex align-items-center text-white">
+      <%= render 'books/book', topic: @topic %>
+    </div>
+    <div class="offset-md-8 col book-mark d-flex align-items-center">
+      <%= link_to 'スレッド一覧へ', topics_path, class: "btn btn-outline-light" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-md-2 col-md-8">
+      <div class="posts">
+        <%= render 'posts/post', topic: @topic, posts: @posts, post: @post %>
+      </div>
+    </div>
+  </div>
 </div>
-<%= link_to 'スレッド一覧へ戻る', topics_path %>
-<div class="posts">
-  <%= render 'posts/post', topic: @topic, posts: @posts, post: @post %>
-</div>
+
