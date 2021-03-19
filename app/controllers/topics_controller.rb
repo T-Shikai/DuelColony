@@ -10,7 +10,7 @@ class TopicsController < ApplicationController
     else
       sorted_topics = Topic.where(is_private: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
     end
-    @topics = Kaminari.paginate_array(sorted_topics).page(params[:page]).per(10)
+    @topics = Kaminari.paginate_array(sorted_topics).page(params[:page]).per(6)
   end
 
   def new

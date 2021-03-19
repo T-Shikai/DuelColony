@@ -1,14 +1,26 @@
-<tr>
-  <td>
-    <%= link_to end_user_path(topic.end_user) do %>
-      <%= attachment_image_tag topic.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
-    <% end %>
-  </td>
-  <td><%= link_to topic.title, topic_path(topic.id) %></td>
-  <td>(<%= topic.posts.count %>)</td>
-  <td>
-    <div class="book-mark-<%= topic.id %>">
-      <%= render 'books/book', topic: topic %>
+<div class="col">
+  <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+    <div class="card-header">
+      <%= link_to end_user_path(topic.end_user) do %>
+        <%= attachment_image_tag topic.end_user, :image, fallback: "no-user-image-icon.jpg", size: "50x50", class: "text-white" %>
+        <%= topic.end_user.name %>
+      <% end %>
     </div>
-  </td>
-</tr>
+    <div class="card-body">
+      <h5 class="card-title">
+        <div class="border-bottom">
+          <%= link_to topic.title, topic_path(topic.id), class: "text-dark" %>(<%= topic.posts.count %>)
+        </div>
+        <div class="book-mark-<%= topic.id %>">
+          <%= render 'books/book', topic: topic %>
+        </div>
+      </h5>
+      <div class="card-text">
+        <%= topic.posts[0].content %>
+        <p class="text-end">
+          <%= link_to '続きを読む', topic_path(topic.id) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

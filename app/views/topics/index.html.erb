@@ -1,29 +1,25 @@
-<h1>公開スレッド一覧</h1>
+<div class="container">
+  <div class="row">
+    <div class="col offset-md-0">
+      <h1>公開スレッド一覧</h1>
 
-<div class="sort">
-  <%= form_with url: topics_path, method: :get do %>
-    <%= select_tag('sort',options_for_select([["投稿新着順", "0"], ["投稿数順", "1"], ["ブックマーク数順", "2"]])) %>
-    <%= submit_tag('表示順を変更') %>
-  <% end %>
-</div>
+      <div class="btn-group" role="group" aria-label="Basic outlined example">
+        <%= link_to "投稿新着順にする", topics_path(sort: 0), class:"btn btn-outline-light" %>
+        <%= link_to "投稿数順にする", topics_path(sort: 1), class:"btn btn-outline-light" %>
+        <%= link_to "ブックマーク数順にする", topics_path(sort: 2), class:"btn btn-outline-light" %>
+      </div>
 
-<div class="sort for development">
-  <%= link_to "投稿新着順にする", topics_path(sort: 0) %>
-  <%= link_to "投稿数順にする", topics_path(sort: 1) %>
-  <%= link_to "ブックマーク数順にする", topics_path(sort: 2) %>
-</div>
-
-<div class="new">
-  <%= link_to new_topic_path do %>
-    <%= "スレッド作成" %>
-  <% end %>
-</div>
-
-<div class="list">
-  <table class="table-striped">
+      <div class="new my-2">
+        <%= link_to new_topic_path, class:"btn btn-light" do %>
+          <%= "スレッド作成" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3">
     <% @topics.each do |topic| %>
       <%= render 'topics/list', topic: topic %>
     <% end %>
     <%= paginate @topics %>
-  </table>
+  </div>
 </div>
