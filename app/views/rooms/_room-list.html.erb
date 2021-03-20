@@ -1,19 +1,32 @@
-<table class="table-striped">
-  <% rooms.each do |room| %>
-    <tr>
-      <td>
-        <%= link_to end_user_path(room.host) do %>
-          <%= attachment_image_tag room.host, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
-        <% end %>
-      </td>
-      <td><%= room.host.name %></td>
-      <td><%= room.title %></td>
-      <td>
-        <div class="room-status-<%= room.id %>">
-          <%= render 'rooms/room-status', room: room %>
+
+<% rooms.each do |room| %>
+  <div class="accordion" id="roomAccordion">
+    <div class="card mt-2">
+      <div class="card-header" id="heading<%= room.id %>">
+        <h5 class="mb-0">
+            <%= link_to end_user_path(room.host) do %>
+              <%= attachment_image_tag room.host, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
+              <%= room.host.name %>
+            <% end %>
+            <%= room.title %>
+          <button class="btn btn-outline-success btn-sm float-right mt-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= room.id %>" aria-expanded="false" aria-controls="collapse1">
+            詳細を表示
+          </button>
+        </h5>
+      </div>
+      <div id="collapse<%= room.id %>" class="collapse" aria-labelledby="heading<%= room.id %>" data-parent="#roomAccordion">
+        <div class="card-body">
+          <div class="border-bottom border-success">
+            <%= room.content %>
+          </div>
+          <div class="room-status-<%= room.id %> card-text my-2 float-right">
+            <%= render 'rooms/room-status', room: room %>
+          </div>
         </div>
-      </td>
-    </tr>
-  <% end %>
-  <%= paginate rooms %>
-</table>
+      </div>
+    </div>
+  </div>
+<% end %>
+<%= paginate rooms %>
+
+

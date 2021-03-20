@@ -1,14 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col offset-md-0">
+    <div>
       <h1>公開スレッド一覧</h1>
-
       <div class="btn-group" role="group" aria-label="Basic outlined example">
         <%= link_to "投稿新着順にする", topics_path(sort: 0), class:"btn btn-outline-light" %>
         <%= link_to "投稿数順にする", topics_path(sort: 1), class:"btn btn-outline-light" %>
         <%= link_to "ブックマーク数順にする", topics_path(sort: 2), class:"btn btn-outline-light" %>
       </div>
-
       <div class="new mt-3">
         <%= link_to new_topic_path, class:"btn btn-light" do %>
           <%= "スレッド作成" %>

@@ -1,19 +1,32 @@
-<h1>
-  対戦チャットルーム
-  <% if @room.status == 3 || @room.status == 5 %>
-    ログ（メッセージ送信不可）
-  <% end %>
-</h1>
-
-<div class="chat">
-  <%= render 'messages/message', room: @room, messages: @messages, message: @message %>
-</div>
-
-<div class="finishing">
-  <% if @room.status == 2 %>
-    <div class="finish-room">
-      <%= render 'rooms/finish-room', room: @room %>
+<div class="container">
+  <div class="row">
+    <h1 class="offset-md-2 col-md-7">
+      対戦チャットルーム
+      <% if @room.status == 3 || @room.status == 5 %>
+        ログ（メッセージ送信不可）
+      <% end %>
+    </h1>
+  </div>
+  <div class="row">
+    <div class="chat offset-md-2 col-md-7">
+      <%= render 'messages/message', room: @room, messages: @messages, message: @message %>
     </div>
-    | <%= link_to '中断', accept_room_path(@room), method: :post %>
-  <% end %>
+  </div>
+  <div class="row">
+    <div class="finishing offset-md-7 d-flex">
+      <% if @room.status == 2 %>
+        <div class="finish-room mr-2">
+          <%= render 'rooms/finish-room', room: @room %>
+        </div>
+        <div>
+          <%= link_to '中断', accept_room_path(@room), method: :post, class: "btn btn-outline-danger" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+
+
+
+

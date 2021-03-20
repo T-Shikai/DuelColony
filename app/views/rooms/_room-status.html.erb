@@ -1,33 +1,33 @@
 <% case room.status %>
   <% when 0 %>
     <% if room.host == current_end_user %>
-      募集中 <%= link_to '募集を取り消す', cancel_room_path(room), method: :post, remote: true %>
+      募集中 <%= link_to '募集を取り消す', cancel_room_path(room), method: :post, remote: true, class: "btn btn-outline-danger" %>
     <% else %>
-      <%= link_to '対戦募集に応募する', apply_room_path(room), method: :post, remote: true %>
+      <%= link_to '対戦募集に応募する', apply_room_path(room), method: :post, remote: true, class: "btn btn-outline-warning" %>
     <% end %>
   <% when 1 %>
     <% if room.host == current_end_user %>
-      応募あり <%= link_to '承認', accept_room_path(room), method: :post, remote: true %>/<%= link_to '却下', apply_room_path(room), method: :post, remote: true %>
+      応募あり <%= link_to '承認', accept_room_path(room), method: :post, remote: true, class: "btn btn-outline-primary" %> <%= link_to '却下', apply_room_path(room), method: :post, remote: true, class: "btn btn-outline-danger" %>
     <% elsif room.guest == current_end_user %>
-      <%= link_to '応募をキャンセルする', apply_room_path(room), method: :post, remote: true %>
+      <%= link_to '応募をキャンセルする', apply_room_path(room), method: :post, remote: true, class: "btn btn-outline-danger" %>
     <% else %>
       募集終了
     <% end %>
   <% when 2 %>
     <% if room.host == current_end_user || room.guest == current_end_user %>
-  　   対戦中 <%= link_to 'チャットへ', chat_room_path(room) %>
+  　   対戦中 <%= link_to 'チャットへ', chat_room_path(room), class: "btn btn-outline-primary" %>
   　<% else %>
   　   募集終了
   　<% end %>
   <% when 3 %>
   　<% if room.host == current_end_user || room.guest == current_end_user %>
-  　   対戦終了<%= link_to 'チャットログへ', chat_room_path(room) %>
+  　   対戦終了<%= link_to 'チャットログへ', chat_room_path(room), class: "btn btn-outline-primary" %>
   　<% else %>
   　   対戦終了
   　<% end %>
   <% when 5 %>
   　<% if room.host == current_end_user || room.guest == current_end_user %>
-  　   対戦中断 <%= link_to 'チャットログへ', chat_room_path(room) %>
+  　   対戦中断 <%= link_to 'チャットログへ', chat_room_path(room), class: "btn btn-outline-primary" %>
   　<% else %>
   　   対戦終了
   　<% end %>

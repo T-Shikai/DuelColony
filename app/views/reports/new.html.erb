@@ -1,19 +1,23 @@
-<h1>お問い合わせ</h1>
-<div class="for-development border border-primary">
-  (開発用）<br />
-  <% @reports.each do |report| %>
-    <%= report.end_user.name %>
-    <%= report.content %><br />
-  <% end %>
-</div>
-<div class="report">
-  <%= form_with model: @report, local: true do |f| %>
-    <div class="form-group row">
-      <%= f.label :お問い合わせ内容, class: "col-md-2" %>
-      <%= f.text_area :content, class: "form-control col-md-8" %>
+<!--<div class="for-development border border-primary">-->
+<!--  (開発用）<br />-->
+<!--  <% @reports.each do |report| %>-->
+<!--    <%= report.end_user.name %>-->
+<!--    <%= report.content %><br />-->
+<!--  <% end %>-->
+<!--</div>-->
+
+<div class="container mb-5">
+  <div class="row">
+    <div class="report offset-md-2 col-md-7">
+      <h1 class="my-4">お問い合わせ</h1>
+      <%= form_with model: @report, local: true do |f| %>
+        <div class="form-group">
+          <%= f.text_area :content, size: "x4", placeholder: "お問い合わせ内容", class: "form-control" %>
+        </div>
+        <div class="form-group float-right">
+          <%= f.submit "送信", class: 'btn btn-success' %>
+        </div>
+      <% end %>
     </div>
-    <div class="form-group col-md-12 text-center">
-      <%= f.submit "送信", class: 'btn btn-success' %>
-    </div>
-  <% end %>
+  </div>
 </div>

@@ -1,8 +1,8 @@
 <% case room.finishing %>
 <% when 0 %>
-  <%= link_to '終了希望', finish_room_path(room), method: :post, remote: true %>
+  <%= link_to '終了希望', finish_room_path(room), method: :post, remote: true, class: "btn btn-outline-warning" %>
 <% when current_end_user.id %>
-  <%= link_to '終了希望キャンセル', finish_room_path(room), method: :post, remote: true %>
+  <%= link_to '終了希望キャンセル', finish_room_path(room), method: :post, remote: true, class: "btn btn-outline-warning" %>
 <% else %>
-  <%= link_to '終了希望に同意', finish_room_path(room), method: :post %>
+  <%= link_to '終了希望に同意', finish_room_path(room), method: :post, class: "btn btn-outline-warning" %>
 <% end %>

@@ -1,29 +1,39 @@
-<h1>新しいスレッドを作成</h1>
-
-<div class="form">
-  <%= form_with model: @topic, local: true do |f| %>
-    <div class="form-group row">
-      <%= f.label :title, "タイトル", class: "col-md-3" %>
-      <%= f.text_field :title, placeholder: "タイトル", class: "form-control col-md-8" %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>新しいスレッドを作成</h1>
     </div>
-    <div>
-      <label><%= f.radio_button :is_private, false ,checked: true %>公開スレッド</label><br/>
-      <label><%= f.radio_button :is_private, true %>非公開スレッド</label><br/>
+    <div class="col book-mark d-flex align-items-center">
+      <%= link_to 'スレッド一覧へ', topics_path, class: "btn btn-outline-light" %>
     </div>
-    <div class="first-post">
-      <%= fields_for @post do |e| %>
-        <div class="form-group row">
-          <%= e.label :content, "最初の書き込み", class: "col-md-3" %>
-          <%= e.text_area :content, placeholder: "書き込み", class: "form-control col-md-8" %>
+  </div>
+  <div class="row">
+    <div class="offset-md-2 col-md-7 form text-white">
+      <%= form_with model: @topic, local: true do |f| %>
+        <div class="form-group">
+          <%= f.label :title, "タイトル" %>
+          <%= f.text_field :title, placeholder: "タイトル", class: "form-control" %>
         </div>
-        <div class="form-group row">
-          <%= e.label :image, "投稿画像", class: "col-md-3" %>
-          <%= e.attachment_field :image, class: "col-md-8" %>
+        <!--<div>-->
+        <!--  <label><%= f.radio_button :is_private, false ,checked: true %>公開スレッド</label><br/>-->
+        <!--  <label><%= f.radio_button :is_private, true %>非公開スレッド</label><br/>-->
+        <!--</div>-->
+        <div class="first-post">
+          <%= fields_for @post do |e| %>
+            <div class="form-group">
+              <%= e.label :content, "最初の書き込み" %>
+              <%= e.text_area :content, placeholder: "書き込み", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= e.label :image, "投稿画像", class: "mt-2" %>
+              <%= e.attachment_field :image, class: "btn btn-outline-light ml-2" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "スレッドを作成", class: 'btn btn-success' %>
         </div>
       <% end %>
     </div>
-    <div class="form-group col-md-12 text-center">
-      <%= f.submit "スレッドを作成", class: 'btn btn-success' %>
-    </div>
-  <% end %>
+  </div>
 </div>

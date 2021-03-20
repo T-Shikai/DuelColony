@@ -1,29 +1,51 @@
 <div class="chat-messages">
   <% messages.each do |message| %>
-    <%= attachment_image_tag message.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
-    <%= message.end_user.name %>
-    <% if message.is_deleted %>
-      このメッセージは削除されました
+    <% if current_end_user == message.end_user %>
+      <div class="p-2 mb-4 bg-white rounded text-right">
+        <% if message.is_deleted %>
+          <span class="text-warning">このメッセージは削除されました</span>
+          <span data-toggle="tooltip" data-placement="bottom" title="<%= message.end_user.name %>">
+            <%= link_to end_user_path(message.end_user) do %>
+              <%= attachment_image_tag message.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
+            <% end %>
+          </span>
+        <% else %>
+          <%= message.content %>
+          <span data-toggle="tooltip" data-placement="bottom" title="<%= message.end_user.name %>">
+            <%= link_to end_user_path(message.end_user) do %>
+              <%= attachment_image_tag message.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
+            <% end %>
+          </span>
+          <%= link_to '削除', message_path(message), method: :patch, remote: true, class: "btn btn-outline-danger btn-sm" %>
+        <% end %>
+      </div>
     <% else %>
-      <%= message.content %>
-      <% if current_end_user == message.end_user %>
-        <%= link_to '削除', message_path(message), method: :patch, remote: true %>
-      <% end %>
-    <% end %> <br />
+      <div class="p-2 mb-4 bg-white rounded">
+        <span data-toggle="tooltip" data-placement="bottom" title="<%= message.end_user.name %>">
+          <%= link_to end_user_path(message.end_user) do %>
+            <%= attachment_image_tag message.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
+          <% end %>
+        </span>
+        <% if message.is_deleted %>
+          <span class="text-warning">このメッセージは削除されました</span>
+        <% else %>
+          <%= message.content %>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>
-<div class="send-message">
+<div class="send-message mt-3">
   <% if room.status == 2 %>
     <%= form_with model: message, url: messages_path, method: :post, remote: true do |f| %>
-      <div class="form-group row">
-        <%= f.label :メッセージ, class: "col-md-1" %>
-        <%= f.text_area :content, class: "form-control col-md-8" %>
+      <div class="form-group">
+        <%= f.text_area :content, placeholder: "新規メッセージ", class: "form-control col-md-10" %>
       </div>
       <div>
         <%= f.hidden_field :room_id, :value => room.id %>
         <%= f.hidden_field :end_user_id, :value => current_end_user.id %>
       </div>
-      <div class="form-group col-md-12 text-center">
+      <div class="form-group">
         <%= f.submit "送信", class: 'btn btn-success' %>
       </div>
     <% end %>
