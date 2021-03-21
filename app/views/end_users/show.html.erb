@@ -1,16 +1,20 @@
-<div class="mypage">
-  <h1>
-    <%= attachment_image_tag(@user, :image, fallback: "no-user-image-icon.jpg", size: "100x100" ) %>
-    <%= @user.name %> のマイページ
-  </h1>
-  <% if @user == current_end_user %>
-    <%= link_to '編集', edit_end_user_path(@user) %>
-  <% end %>
+<div class="container">
+  <div class="row">
+    <div class="offset-md-2 col-md-7">
+      <h1>
+        <%= attachment_image_tag(@user, :image, fallback: "no-user-image-icon.jpg", size: "100x100" ) %>
+        <%= @user.name %> のマイページ
+        <% if @user == current_end_user %>
+          <%= link_to '編集', edit_end_user_path(@user), class: "btn btn-outline-light mb-2" %>
+        <% end %>
+      </h1>
+      <div class="introduction bg-white rounded">
+        <%= @user.introduction %>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="introduction">
-  <%= @user.introduction %>
-</div>
 
 <div class="mypage-tab">
   <div class="my-tab-nav">

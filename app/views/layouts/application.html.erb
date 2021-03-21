@@ -16,31 +16,53 @@
           <% if end_user_signed_in? %>
             <ul class="navbar-nav">
               <li class="nav-item">
-                <%= link_to 'トップへ', root_path, class: "btn btn-dark ml-1" %>
+                <div class="dropdown">
+                  <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    メニュー
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                    <%= link_to 'トップへ', root_path, class: "dropdown-item" %>
+                    <div class="dropdown-divider"></div>
+                    <%= link_to '掲示板', topics_path(sort: 0), class: "dropdown-item" %>
+                    <%= link_to '対戦', rooms_path(sort: 0), class: "dropdown-item" %>
+                    <%= link_to '大会', root_path, class: "dropdown-item" %>
+                  </div>
+                </div>
               </li>
               <li class="nav-item">
                 <%= link_to 'マイページ', end_user_path(current_end_user), class: "btn btn-dark ml-1" %>
               </li>
               <li class="nav-item">
-                <%= link_to "問い合わせ", new_report_path, class: "btn btn-dark ml-1" %>
+                <%= link_to 'ログアウト', destroy_end_user_session_path, method: :delete, class: "btn btn-dark ml-1" %>
               </li>
               <li class="nav-item">
-                <%= link_to 'ログアウト', destroy_end_user_session_path, method: :delete, class: "btn btn-dark ml-1" %>
+                <%= link_to "お問い合わせ", new_report_path, class: "btn btn-dark ml-1" %>
               </li>
             </ul>
           <% else %>
             <ul class="navbar-nav">
               <li class="nav-item">
-                <%= link_to 'トップへ', root_path, class: "btn btn-primary ml-1" %>
+                <div class="dropdown">
+                  <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    メニュー
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                    <%= link_to 'トップへ', root_path, class: "dropdown-item" %>
+                    <div class="dropdown-divider"></div>
+                    <%= link_to '掲示板', topics_path(sort: 0), class: "dropdown-item" %>
+                    <%= link_to '対戦', rooms_path(sort: 0), class: "dropdown-item" %>
+                    <%= link_to '大会', root_path, class: "dropdown-item" %>
+                  </div>
+                </div>
               </li>
               <li class="nav-item">
-                <%= link_to 'About', about_path, class: "btn btn-primary ml-1" %>
+                <%= link_to 'About', about_path, class: "btn btn-dark ml-1" %>
               </li>
               <li class="nav-item">
-                <%= link_to 'ログイン', new_end_user_session_path, class: "btn btn-primary ml-1" %>
+                <%= link_to 'ログイン', new_end_user_session_path, class: "btn btn-dark ml-1" %>
               </li>
               <li class="nav-item">
-                <%= link_to '新規登録', new_end_user_registration_path, class: "btn btn-primary ml-1" %>
+                <%= link_to '新規登録', new_end_user_registration_path, class: "btn btn-dark ml-1" %>
               </li>
             </ul>
           <% end %>
