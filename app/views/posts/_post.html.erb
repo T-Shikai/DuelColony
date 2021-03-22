@@ -20,7 +20,7 @@
           <%= topic.posts.where("id <= ?", post.id).count %>
           <% case post.status %>
           <% when 0 %>
-            <%= post.content %>
+            <%= simple_format(post.content) %>
             <div class="post-image">
               <% if post.image %>
                 <%= attachment_image_tag post, :image, fallback: "no-user-image-icon.jpg", size: "350x350" %>
@@ -30,7 +30,7 @@
               <%= render 'likes/like', post: post %>
             </div>
             <% if current_end_user == post.end_user %>
-              <%= link_to '削除', post_path(post), method: :patch, remote: true, class: "btn btn-outline-danger" %>
+              <%= link_to '投稿を削除', post_path(post), method: :patch, remote: true, class: "btn btn-outline-danger" %>
             <% end %>
           <% when 1 %>
             <div class="text-danger">
@@ -54,7 +54,7 @@
         <%= f.text_area :content, placeholder: "ここに書き込んでください(1つのスレッドに投稿できるのは200件までです)", size: "x4", class: "form-control" %>
       </div>
       <div class="form-group">
-        <%= f.label :image, "画像を投稿", class: "text-white pt-2" %>
+        <%= f.label :image, "画像", class: "text-white pt-2" %>
         <%= f.attachment_field :image, class: "ml-2 text-white btn btn-outline-light" %>
         <%= f.hidden_field :topic_id, :value => topic.id %>
         <%= f.submit "書き込む", class: 'btn btn-success ml-2' %>

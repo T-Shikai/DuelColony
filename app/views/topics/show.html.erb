@@ -1,15 +1,15 @@
 <div class="container">
   <div class="row">
-    <h1 class="d-flex"><%= @topic.title %></h1>
-    <div class="ml-4 book-mark d-flex align-items-center text-white">
-      <%= render 'books/book', topic: @topic %>
-    </div>
-    <div class="offset-md-8 col book-mark d-flex align-items-center">
-      <%= link_to 'スレッド一覧へ', topics_path, class: "btn btn-outline-light" %>
-    </div>
-  </div>
-  <div class="row">
     <div class="offset-md-2 col-md-8">
+      <div class="d-flex">
+        <h1><%= @topic.title %></h1>
+        <div class="ml-4 mt-3 book-mark text-white">
+          <%= render 'books/book', topic: @topic %>
+        </div>
+      </div>
+      <div class="book-mark d-flex align-items-center">
+        <%= link_to 'スレッド一覧へ', topics_path, class: "btn btn-outline-light" %>
+      </div>
       <div class="posts">
         <%= render 'posts/post', topic: @topic, posts: @posts, post: @post %>
       </div>

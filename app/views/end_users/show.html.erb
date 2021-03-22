@@ -9,42 +9,44 @@
         <% end %>
       </h1>
       <div class="introduction bg-white rounded">
-        <%= @user.introduction %>
+        <%= simple_format(@user.introduction) %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mypage-tab offset-md-2 col-md-7">
+      <div class="my-tab-nav">
+        <a href="" class="my-nav-item is-active" data-nav="0"></a>
+        <a href="" class="my-nav-item" data-nav="1"></a>
+        <a href="" class="my-nav-item" data-nav="2"></a>
+      </div>
+      <div class="my-tab-contents">
+        <div class="room-history my-content">
+          <h2>対戦履歴</h2>
+          <%= render 'rooms/room-list', rooms: @rooms %>
+        </div>
+        <div class="my-topics my-content">
+          <h2>作成したスレッド</h2>
+          <div class="row row-cols-1 row-cols-md-2">
+            <% @topics.each do |topic| %>
+              <%= render 'topics/list', topic: topic %>
+            <% end %>
+          </div>
+          <%= paginate @topics %>
+        </div>
+        <div class="book-topics my-content">
+          <h2>ブックマークしたスレッド</h2>
+          <div class="row row-cols-1 row-cols-md-2">
+            <% @books.each do |book| %>
+              <% topic = book.topic %>
+              <%= render 'topics/list', topic: topic %>
+            <% end %>
+          </div>
+          <%= paginate @books %>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="mypage-tab">
-  <div class="my-tab-nav">
-    <a href="" class="my-nav-item is-active" data-nav="0"></a>
-    <a href="" class="my-nav-item" data-nav="1"></a>
-    <a href="" class="my-nav-item" data-nav="2"></a>
-  </div>
-  <div class="my-tab-contents">
-    <div class="room-history my-content">
-      <h2>対戦履歴</h2>
-      <%= render 'rooms/room-list', rooms: @rooms %>
-    </div>
-    <div class="my-topics my-content">
-      <h2>作成したスレッド</h2>
-      <table class="table-striped">
-        <% @topics.each do |topic| %>
-          <%= render 'topics/list', topic: topic %>
-        <% end %>
-        <%= paginate @topics %>
-        </table>
-    </div>
-    <div class="book-topics my-content">
-      <h2>ブックマークしたスレッド</h2>
-      <table class="table-striped">
-        <% @books.each do |book| %>
-          <% topic = book.topic %>
-          <%= render 'topics/list', topic: topic %>
-        <% end %>
-        <%= paginate @books %>
-      </table>
-    </div>
-  </div>
-</div>
