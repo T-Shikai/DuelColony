@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :rooms
   resources :messages, only:[:create, :update]
   resources :reports, only:[:new, :create]
+  resources :tournaments, only:[:index, :new, :show, :create, :update]
+  resources :participants, only:[:create, :destroy, :update]
   root to: 'homes#top'
   get 'about' => 'homes#about'
 

@@ -16,4 +16,6 @@ class EndUser < ApplicationRecord
   has_many :reports
   has_many :likes
   has_many :books
+  has_many :tournaments
+  has_many :participants
 end

@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>大会一覧</h1>
+      <%= link_to '開催する', new_tournament_path, class: "btn btn-light" %>
+
+      <% @tournaments.each do |tour| %>
+        <div class="accordion" id="roomAccordion">
+          <div class="card mt-2">
+            <div class="card-header" id="heading<%= tour.id %>">
+              <h5 class="mb-0">
+                  <%= link_to end_user_path(tour.end_user) do %>
+                    <%= attachment_image_tag tour.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
+                    <%= tour.end_user.name %>
+                  <% end %>
+                  <%= tour.title %>
+                <button class="btn btn-outline-success btn-sm float-right mt-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= tour.id %>" aria-expanded="false" aria-controls="collapse1">
+                  詳細を表示
+                </button>
+              </h5>
+            </div>
+            <div id="collapse<%= tour.id %>" class="collapse" aria-labelledby="heading<%= tour.id %>" data-parent="#roomAccordion">
+              <div class="card-body">
+                <div class="border-bottom border-success">
+                  <%= simple_format(tour.content) %>
+                </div>
+                <div class="room-status-<%= tour.id %> card-text my-2 float-right">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

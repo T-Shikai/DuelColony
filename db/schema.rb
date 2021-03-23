@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_144704) do
+ActiveRecord::Schema.define(version: 2021_03_22_145424) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -63,6 +63,14 @@ ActiveRecord::Schema.define(version: 2021_03_16_144704) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "participants", force: :cascade do |t|
+    t.integer "end_user_id", null: false
+    t.integer "tournament_id", null: false
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer "end_user_id", null: false
     t.integer "topic_id", null: false
@@ -96,6 +104,17 @@ ActiveRecord::Schema.define(version: 2021_03_16_144704) do
     t.text "title", null: false
     t.boolean "is_private", default: false
     t.boolean "is_deleted", default: false
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tournaments", force: :cascade do |t|
+    t.integer "end_user_id", null: false
+    t.string "title", null: false
+    t.text "content", null: false
+    t.text "result"
+    t.integer "max", null: false
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
