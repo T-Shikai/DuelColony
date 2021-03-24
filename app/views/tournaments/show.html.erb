@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>大会情報管理</h1>
+        <% case @tournament.status %>
+        <% when 0 %>
+          <div>
+            <%= form_with model: @tournament, url: info_tournament_path(@tournament), local: true do |f| %>
+              <div class="form-group">
+                <%= f.label :title, "大会名" %>
+                <%= f.text_field :title, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :content, "詳細" %>
+                <%= f.text_area :content, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :max, "最大募集人数" %>
+                <%= f.number_field :max, class: "form-control" %>
+              </div>
+              <div>
+                <%= f.submit "変更を保存", class: 'btn btn-success' %>
+              </div>
+            <% end %>
+          </div>
+          <% @tournament.participants.each do |part| %>
+            <%= part.end_user.name %>
+            <%= link_to 'この参加者をキャンセル', participants_path(part), method: :delete, class: "btn btn-outline-danger" %>
+          <% end %>
+          <%= link_to '募集を締切る', tournament_path(@tournament), method: :patch, class: "btn btn-outline-warning" %>
+        <% when 1 %>
+          <% @tournament.participants.each do |part| %>
+            <%= part.end_user.name %>
+            <div class="attendance">
+              <% case part.status %>
+              <% when 1 %>
+                未確定
+              <% when 2 %>
+                出席
+              <% when 3 %>
+                欠席（連絡あり）
+              <% when 4 %>
+              　無断欠席
+              <% end %>
+            </div>
+            <div class="btn-group" role="group">
+              <%= link_to '出席', rooms_path(attend: 2), class:"btn btn-outline-light" %>
+              <%= link_to '欠席（連絡あり）', rooms_path(attend: 3), class:"btn btn-outline-light" %>
+              <%= link_to '無断欠席', rooms_path(attend: 4), class:"btn btn-outline-light" %>
+            </div>
+            <div class="result">
+              <%= form_with model: @tournament, url: finish_tournament_path(@tournament), local: true do |f| %>
+              <div class="form-group">
+                <%= f.label :result, "大会結果" %>
+                <%= f.text_area :result, class: "form-control" %>
+              </div>
+              <div>
+                <%= f.submit "大会を終了する", class: 'btn btn-success' %>
+              </div>
+            <% end %>
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
+</div>

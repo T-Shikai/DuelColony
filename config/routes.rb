@@ -19,7 +19,10 @@ Rails.application.routes.draw do
   resources :rooms
   resources :messages, only:[:create, :update]
   resources :reports, only:[:new, :create]
-  resources :tournaments, only:[:index, :new, :show, :create, :update]
+  patch 'tournaments/update_info/:id' => 'tournaments#update_info', as: 'info_tournament'
+  post 'tournaments/finish/:id' => 'tournaments#finish', as: 'finish_tournament'
+  get 'tournaments/result/:id' => 'tournaments#result', as: 'result_tournament'
+  resources :tournaments
   resources :participants, only:[:create, :destroy, :update]
   root to: 'homes#top'
   get 'about' => 'homes#about'

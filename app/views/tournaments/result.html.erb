@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>大会結果</h1>
+      大会名<%= @tournament.title %>
+      大会詳細<%= @tournament.content %>
+      大会結果<%= @tournament.result %>
+      <% @tournament.participants.each do |part| %>
+        <%= part.end_user.name %>
+          <% case part.status %>
+          <% when 1 %>
+            未確定
+          <% when 2 %>
+            出席
+          <% when 3 %>
+            欠席（連絡あり）
+          <% when 4 %>
+          　無断欠席
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
