@@ -75,6 +75,12 @@ class RoomsController < ApplicationController
 
   def chat
     @room = Room.find(params[:id])
+    #既読となり通知が出なくなる
+    @notices = current_end_user.passive_notifications.where(room_id: @room.id)
+    @notices.each do |notice|
+      notice.update(checked: true)
+    end
+    #対戦成立後にのみチャットが存在
     if @room.status != 2 && @room.status != 3 && @room.status != 5
       redirect_to rooms_path
     else

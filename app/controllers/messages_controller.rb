@@ -5,6 +5,15 @@ class MessagesController < ApplicationController
     @messages = @room.messages
     @message = Message.new
     if message.save
+      #通知
+      current_end_user == @room.host ? @visited = @room.guest : @visited = @room.host
+      @notice = current_end_user.active_notifications.new(
+        room_id: @room.id,
+        message_id: message.id,
+        visited_id: @visited.id,
+        visitor_id: current_end_user.id
+      )
+      @notice.save
       flash[:error] = 'メッセージが送信されました。'
       render :index
     else

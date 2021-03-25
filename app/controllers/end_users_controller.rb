@@ -6,6 +6,8 @@ class EndUsersController < ApplicationController
     @books = @user.books.page(params[:page]).per(4).order('id desc')
     @tournaments = @user.tournaments.page(params[:page]).per(5).order('id desc')
     @participants = @user.participants.page(params[:page]).per(5).order('id desc')
+    @notice = current_end_user.passive_notifications.where(checked: false).order('id desc')[0]
+
   end
 
   def edit
