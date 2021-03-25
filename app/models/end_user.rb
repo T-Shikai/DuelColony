@@ -18,4 +18,6 @@ class EndUser < ApplicationRecord
   has_many :books
   has_many :tournaments
   has_many :participants
+  has_many :active_notifications, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
 end

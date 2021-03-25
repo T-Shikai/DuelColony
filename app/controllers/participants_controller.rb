@@ -1,11 +1,9 @@
 class ParticipantsController < ApplicationController
   def create
-    @participant = Participant.new
-    @participant.tournament_id = params[:tour_id]
-    @participant.end_user = current_end_user
+    @participant = Participant.new(tournament_params)
     if @participant.save
-      if @participant.tournament.paticipants.count > @participant.tournament.max
-        @participants.destroy
+      if @participant.tournament.participants.count > @participant.tournament.max
+        @participant.destroy
         flash[:error] = "参加人数がいっぱいです"
         redirect_back(fallback_location: root_path)
       else
@@ -19,20 +17,21 @@ class ParticipantsController < ApplicationController
   end
 
   def destroy
-    @paticipant = Participant.find(params[:id])
+    @participant = Participant.find(params[:id])
     if @participant.destroy
       redirect_back(fallback_location: root_path)
     end
   end
 
   def update
-    @paticipant = Participant.find(params[:id])
-    @participant.update(status: params[:attend])
+    @participant = Participant.find(params[:id])
+    @participant.update(status: params[:attend].to_i)
+    redirect_back(fallback_location: root_path)
   end
 
   private
 
   def tournament_params
-    params.require(:participant).merge(tournament_id: params[:tournament_id])
+    params.require(:participant).permit(:tournament_id, :end_user_id)
   end
 end

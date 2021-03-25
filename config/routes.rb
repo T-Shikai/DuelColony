@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   }
   devise_for :end_users
   resources :end_users, only:[:show, :edit, :update]
+  get 'topics/search' => 'topics#search', as: 'search_topic'
   resources :topics do
     resource :books, only:[:create, :destroy]
   end
@@ -26,5 +27,4 @@ Rails.application.routes.draw do
   resources :participants, only:[:create, :destroy, :update]
   root to: 'homes#top'
   get 'about' => 'homes#about'
-
 end

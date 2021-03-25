@@ -1,0 +1,58 @@
+<div class="accordion" id="roomAccordion">
+  <div class="card mt-2">
+    <div class="card-header" id="heading<%= tour.id %>">
+      <h5 class="mb-0">
+          <%= link_to end_user_path(tour.end_user) do %>
+            <%= attachment_image_tag tour.end_user, :image, fallback: "no-user-image-icon.jpg", size: "60x60" %>
+            <%= tour.end_user.name %>
+          <% end %>
+          <%= tour.title %>
+        <button class="btn btn-outline-success btn-sm float-right mt-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= tour.id %>" aria-expanded="false" aria-controls="collapse1">
+          詳細を表示
+        </button>
+        <span class="float-right m-3">参加人数 : <%= tour.participants.count %> / <%= tour.max %> 人</span>
+      </h5>
+    </div>
+    <div id="collapse<%= tour.id %>" class="collapse" aria-labelledby="heading<%= tour.id %>" data-parent="#roomAccordion">
+      <div class="card-body">
+        <div class="border-bottom border-success">
+          <%= simple_format(tour.content) %>
+        </div>
+        <div class="room-status-<%= tour.id %> card-text my-2 float-right">
+          <% case tour.status %>
+          <% when 0 %>
+            <div>
+              <!--current_end_userが参加者であれば@partが存在-->
+              <% tour.participants.each do |part| %>
+              <% @part = part if part.end_user == current_end_user %>
+              <% end %>
+            </div>
+            <% if current_end_user == tour.end_user %>
+              <%= link_to '管理ページへ', tournament_path(tour), class: "btn btn-outline-success" %>
+              <%= link_to '募集を締切る', tournament_path(tour), method: :patch, class: "btn btn-outline-warning" %>
+              <%= link_to '開催を中止する', tournament_path(tour), method: :delete, class: "btn btn-outline-danger" %>
+            <% elsif @part %>
+              <%= link_to '参加をキャンセル', participant_path(@part), method: :delete, class: "btn btn-outline-danger" %>
+            <% else %>
+              <%= form_with model: Participant.new, url: participants_path, method: :post do |f| %>
+                <%= f.hidden_field :tournament_id, :value => tour.id %>
+                <%= f.hidden_field :end_user_id, :value => current_end_user.id %>
+                <%= f.submit '参加する', class: "btn btn-success" %>
+              <% end %>
+            <% end %>
+          <% when 1 %>
+            <% if current_end_user == tour.end_user %>
+              <%= link_to '管理ページへ', tournament_path(tour), class: "btn btn-outline-success" %>
+            <% elsif @part %>
+              参加確定
+            <% else %>
+              参加締切済
+            <% end %>
+          <% when 2 %>
+            <%= link_to '大会結果ページへ', result_tournament_path(tour), class: "btn btn-outline-success" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

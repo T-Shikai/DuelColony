@@ -1,4 +1,4 @@
 class Participant < ApplicationRecord
   belongs_to :end_user
-  belongs_to :tournamen
+  belongs_to :tournament
 end

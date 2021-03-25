@@ -1,6 +1,15 @@
 class TournamentsController < ApplicationController
   def index
-    @tournaments = Tournament.all
+    case params[:devide]
+    when "0"
+      @tournaments = Tournament.page(params[:page]).per(10).where(status: 0).order('id desc')
+    when "1"
+      @tournaments = Tournament.page(params[:page]).per(10).where(status: [1,2]).order('id desc')
+    when "2"
+      @tournaments = current_end_user.tournaments.page(params[:page]).per(10).order('id desc')
+    else
+      @tournaments = Tournament.page(params[:page]).per(10).where(status: 0).order('id desc')
+    end
   end
 
   def new
@@ -69,7 +78,7 @@ class TournamentsController < ApplicationController
   def show
     @tournament = Tournament.find(params[:id])
   end
-  
+
   def result
     @tournament = Tournament.find(params[:id])
   end

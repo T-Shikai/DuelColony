@@ -1,22 +1,41 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="offset-md-2 col-md-7 text-white">
       <h1>大会結果</h1>
-      大会名<%= @tournament.title %>
-      大会詳細<%= @tournament.content %>
-      大会結果<%= @tournament.result %>
+      大会名
+      <div class="bg-white text-dark mb-5 rounded">
+        <%= @tournament.title %>
+      </div>
+      大会詳細
+      <div class="bg-white text-dark mb-5 rounded">
+        <%= simple_format(@tournament.content) %>
+      </div>
+      大会結果
+      <div class="bg-white text-dark mb-5 rounded">
+        <%= simple_format(@tournament.result) %>
+      </div>
+      参加者出欠
       <% @tournament.participants.each do |part| %>
-        <%= part.end_user.name %>
-          <% case part.status %>
-          <% when 1 %>
-            未確定
-          <% when 2 %>
-            出席
-          <% when 3 %>
-            欠席（連絡あり）
-          <% when 4 %>
-          　無断欠席
-          <% end %>
+        <table>
+          <tr>
+            <td>
+              <%= attachment_image_tag part.end_user, :image, fallback: "no-user-image-icon.jpg", size: "40x40" %>
+              <%= part.end_user.name %>
+            </td>
+            <td>
+              <% case part.status %>
+              <% when 1 %>
+                未確定
+              <% when 2 %>
+                出席
+              <% when 3 %>
+                欠席（連絡あり）
+              <% when 4 %>
+              　無断欠席
+              <% end %>
+            </td>
+          </tr>
+        </table>
       <% end %>
     </div>
   </div>

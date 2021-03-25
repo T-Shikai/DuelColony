@@ -13,6 +13,13 @@ class TopicsController < ApplicationController
     @topics = Kaminari.paginate_array(sorted_topics).page(params[:page]).per(6)
   end
 
+  def search
+    @topics = Topic.page(params[:page]).per(6)
+      .where("title LIKE ?", "%#{params[:content]}%")
+      .order('id desc')
+    render :index
+  end
+
   def new
     @topic = Topic.new
     @post = Post.new

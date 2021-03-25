@@ -16,6 +16,7 @@
   <div class="row">
     <div class="room-list offset-md-2 col-md-8">
       <%= render 'rooms/room-list', rooms: @rooms %>
+      <%= paginate @rooms %>
     </div>
   </div>
 </div>

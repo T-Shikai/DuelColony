@@ -1,9 +1,11 @@
 class EndUsersController < ApplicationController
   def show
     @user = EndUser.find(params[:id])
-    @rooms = Room.page(params[:page]).per(8).where(status: [3,5]).where('host_id = ? or guest_id = ?', current_end_user, current_end_user).order('id desc')
-    @topics = @user.topics.page(params[:page]).per(4)
-    @books = @user.books.page(params[:page]).per(4)
+    @rooms = Room.page(params[:page]).per(5).where(status: [3,5]).where('host_id = ? or guest_id = ?', current_end_user, current_end_user).order('id desc')
+    @topics = @user.topics.page(params[:page]).per(4).order('id desc')
+    @books = @user.books.page(params[:page]).per(4).order('id desc')
+    @tournaments = @user.tournaments.page(params[:page]).per(5).order('id desc')
+    @participants = @user.participants.page(params[:page]).per(5).order('id desc')
   end
 
   def edit

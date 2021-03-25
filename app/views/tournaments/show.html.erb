@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="offset-md-2 col-md-7">
       <h1>大会情報管理</h1>
         <% case @tournament.status %>
         <% when 0 %>
@@ -29,37 +29,42 @@
           <% end %>
           <%= link_to '募集を締切る', tournament_path(@tournament), method: :patch, class: "btn btn-outline-warning" %>
         <% when 1 %>
-          <% @tournament.participants.each do |part| %>
-            <%= part.end_user.name %>
-            <div class="attendance">
-              <% case part.status %>
-              <% when 1 %>
-                未確定
-              <% when 2 %>
-                出席
-              <% when 3 %>
-                欠席（連絡あり）
-              <% when 4 %>
-              　無断欠席
-              <% end %>
-            </div>
-            <div class="btn-group" role="group">
-              <%= link_to '出席', rooms_path(attend: 2), class:"btn btn-outline-light" %>
-              <%= link_to '欠席（連絡あり）', rooms_path(attend: 3), class:"btn btn-outline-light" %>
-              <%= link_to '無断欠席', rooms_path(attend: 4), class:"btn btn-outline-light" %>
-            </div>
-            <div class="result">
-              <%= form_with model: @tournament, url: finish_tournament_path(@tournament), local: true do |f| %>
-              <div class="form-group">
-                <%= f.label :result, "大会結果" %>
-                <%= f.text_area :result, class: "form-control" %>
-              </div>
-              <div>
-                <%= f.submit "大会を終了する", class: 'btn btn-success' %>
+          <div class="list-group">
+            <% @tournament.participants.each do |part| %>
+              <div class = "d-flex list-group-item">
+                <%= attachment_image_tag(part.end_user, :image, fallback: "no-user-image-icon.jpg", size: "50x50" ) %>
+                <%= part.end_user.name %>
+                <div class="attendance offset-md-2 mt-2">
+                  <% case part.status %>
+                  <% when 1 %>
+                    未確定
+                  <% when 2 %>
+                    出席
+                  <% when 3 %>
+                    欠席（連絡あり）
+                  <% when 4 %>
+                  　無断欠席
+                  <% end %>
+                </div>
+                <div class="btn-group offset-md-1" role="group">
+                  <%= link_to '出席', participant_path(attend: 2), method: :patch, class:"btn btn-outline-dark btn-sm" %>
+                  <%= link_to '欠席（連絡あり）', participant_path(attend: 3), method: :patch, class:"btn btn-outline-dark btn-sm" %>
+                  <%= link_to '無断欠席', participant_path(attend: 4), method: :patch, class:"btn btn-outline-dark btn-sm" %>
+                </div>
               </div>
             <% end %>
+          </div>
+          <div class="result">
+            <%= form_with model: @tournament, url: finish_tournament_path(@tournament),method: :post, local: true do |f| %>
+            <div class="form-group text-white">
+              <%= f.label :result, "大会結果" %>
+              <%= f.text_area :result, class: "form-control" %>
+            </div>
+            <div>
+              <%= f.submit "大会を終了する", class: 'btn btn-success' %>
             </div>
           <% end %>
+          </div>
         <% end %>
     </div>
   </div>
