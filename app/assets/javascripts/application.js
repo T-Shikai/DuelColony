@@ -52,3 +52,15 @@ $(function(){
       });
   });
 });
+
+$(function(){
+  $('.close-up-btn').click(function(){
+    $('.close-up-modal').modal('show')
+  })
+  $('.participate-btn').click(function(){
+    $('.participate-modal').modal('show')
+  })
+  $('.part-confirm-btn').click(function(){
+    $('.participate-modal').modal('hide')
+  })
+});

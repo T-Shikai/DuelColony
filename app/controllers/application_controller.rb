@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :notification
+  before_action :notification, if: :current_end_user
 
   def after_sign_in_path_for(resource)
     if current_admin

@@ -1,0 +1,20 @@
+<!--大会参加締め切り確認のモーダル-->
+<div class="modal close-up-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">募集を締め切りますか？</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>募集を締切ると大会情報の編集ができなくなります。</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        <%= link_to '募集を締切る', tournament_path(tournament), method: :patch, class: "btn btn-warning" %>
+      </div>
+    </div>
+  </div>
+</div>

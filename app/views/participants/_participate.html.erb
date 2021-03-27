@@ -1,0 +1,32 @@
+<% case tour.status %>
+<% when 0 %>
+  <div>
+    <!--current_end_userが参加者であれば@partが存在-->
+    <% tour.participants.each do |part| %>
+    <% @part = part if part.end_user == current_end_user %>
+    <% end %>
+  </div>
+  <% if current_end_user == tour.end_user %>
+    <%= link_to '管理ページへ', tournament_path(tour), class: "btn btn-outline-success" %>
+    <button class="btn btn-outline-warning close-up-btn">募集を締切る</button>
+    <%= link_to '開催を中止する', tournament_path(tour), method: :delete, class: "btn btn-outline-danger" %>
+  <% elsif @part %>
+    <%= link_to '参加をキャンセル', participant_path(@part), method: :delete, remote: true, class: "btn btn-outline-danger" %>
+  <% else %>
+    <% if tour.participants.count >= tour.max %>
+      満員御礼
+    <% else %>
+      <button class="btn btn-outline-success participate-btn">参加する</button>
+    <% end %>
+  <% end %>
+<% when 1 %>
+  <% if current_end_user == tour.end_user %>
+    <%= link_to '管理ページへ', tournament_path(tour), class: "btn btn-outline-success" %>
+  <% elsif @part %>
+    参加確定
+  <% else %>
+    参加締切済
+  <% end %>
+<% when 2 %>
+  <%= link_to '大会結果を見る', result_tournament_path(tour), class: "btn btn-outline-success" %>
+<% end %>

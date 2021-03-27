@@ -12,6 +12,8 @@
         <%= link_to '開催する', new_tournament_path, class: "btn btn-light" %>
       </div>
       <% @tournaments.each do |tour| %>
+        <%= render 'tournaments/close', tournament: tour %>
+        <%= render 'tournaments/participate', tour: tour %>
         <%= render 'tournaments/list', tour: tour %>
       <% end %>
       <%= paginate @tournaments %>

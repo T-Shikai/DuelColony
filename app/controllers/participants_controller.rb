@@ -2,24 +2,25 @@ class ParticipantsController < ApplicationController
   def create
     @participant = Participant.new(tournament_params)
     if @participant.save
+      @tournament = @participant.tournament
       if @participant.tournament.participants.count > @participant.tournament.max
         @participant.destroy
         flash[:error] = "参加人数がいっぱいです"
-        redirect_back(fallback_location: root_path)
+        render :index
       else
-        flash[:error] = "参加しました"
-        redirect_back(fallback_location: root_path)
+        render :index
       end
     else
       flash[:error] = @participant.errors.full_messages
-      redirect_back(fallback_location: root_path)
+      render :index
     end
   end
 
   def destroy
     @participant = Participant.find(params[:id])
+    @tournament = @participant.tournament
     if @participant.destroy
-      redirect_back(fallback_location: root_path)
+      render :index
     end
   end
 

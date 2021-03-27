@@ -1,0 +1,24 @@
+<!--大会参加確認のモーダル-->
+<div class="modal participate-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">大会に参加しますか？</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>参加をキャンセルせずに当日参加しなかった場合、無断欠席として記録されます。</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        <%= form_with model: Participant.new, url: participants_path, method: :post, remote: true do |f| %>
+          <%= f.hidden_field :tournament_id, :value => tour.id %>
+          <%= f.hidden_field :end_user_id, :value => current_end_user.id %>
+          <%= f.submit '参加する', class: "btn btn-success part-confirm-btn" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
