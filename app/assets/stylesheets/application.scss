@@ -42,3 +42,8 @@ h1,h2{
  display: none;
 }
 
+.chat-toast{
+ position: fixed;
+ z-index: 1;
+ right: 8%;
+}

@@ -1,24 +1,5 @@
 <div class="container">
   <div class="row">
-    <!--通知-->
-    <% if @notice %>
-      <div class="toast offset-md-9" data-autohide="false">
-        <div class="toast-header">
-          <strong class="mr-auto">チャットメッセージがあります</strong>
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="toast-body">
-          <div>
-            <%= @notice.visitor.name %> : <%= @notice.message.content %>
-          </div>
-          <div class="text-right">
-            <%= link_to '対戦チャットへ', chat_room_path(@notice.room) %>
-          </div>
-        </div>
-      </div>
-    <% end %>
     <div class="offset-md-2 col-md-7">
       <h1>
         <%= attachment_image_tag(@user, :image, fallback: "no-user-image-icon.jpg", size: "100x100" ) %>

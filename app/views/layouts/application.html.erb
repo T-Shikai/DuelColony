@@ -76,6 +76,27 @@
         <%= link_to '管理者ログイン', new_admin_session_path %>
       <% end %>
     </div>
+    <div class="chat-toast">
+    <!--通知-->
+      <% if @notice %>
+        <div class="toast" data-autohide="false">
+          <div class="toast-header">
+            <strong class="mr-auto">未読のチャットメッセージがあります</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body">
+            <div>
+              <%= @notice.visitor.name %> : <%= @notice.message.content %>
+            </div>
+            <div class="text-right">
+              <%= link_to '対戦チャットへ', chat_room_path(@notice.room) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
     <div class="flash text-success">
       <% if flash[:error] %>
         <%= flash[:error] %>
