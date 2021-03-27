@@ -17,10 +17,38 @@
 //= require_tree .
 
 
-$(document).ready(function () {
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  });
+// チャットルームの名前表示
+$(function(){
+  $('[data-toggle="tooltip"]').hover(
+    function(){
+      $(this).tooltip('show');
+    },
+    function(){
+      $(this).tooltip('hide');
+    }
+  );
+});
+
+// 通知
+$(function(){
   $('.toast').toast('show');
 });
 
+// マイページ
+$(function(){
+  var $nav = $('.my-nav-item');
+  var $content = $('.my-content');
+  // 初期状態
+  $content.eq(0).show();
+  // クリックするとmy-contentを表示し、ボタンの色を変更
+  $nav.each(function(i,elm){
+    $(elm).click(function(){
+      $content.hide();
+      $content.eq(i).show();
+      if($nav.hasClass('btn-light')){
+        $nav.removeClass('btn-light').addClass('btn-outline-light');
+      };
+      $(this).removeClass('btn-outline-light').addClass('btn-light');
+      });
+  });
+});

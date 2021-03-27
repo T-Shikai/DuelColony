@@ -34,12 +34,13 @@
   </div>
   <div class="row">
     <div class="mypage-tab offset-md-2 col-md-7">
-      <div class="my-tab-nav">
-        <a href="" class="my-nav-item is-active" data-nav="0"></a>
-        <a href="" class="my-nav-item" data-nav="1"></a>
-        <a href="" class="my-nav-item" data-nav="2"></a>
+      <div class="my-tab-nav btn-group">
+        <button class="my-nav-item btn btn-light">対戦履歴</button>
+        <button class="my-nav-item btn btn-outline-light">作成したスレッド</button>
+        <button class="my-nav-item btn btn-outline-light">ブックマークしたスレッド</button>
+        <button class="my-nav-item btn btn-outline-light">開催・参加した大会</button>
       </div>
-      <div class="my-tab-contents">
+      <div class="my-tab-contents mt-3">
         <div class="room-history my-content">
           <h2>対戦履歴</h2>
           <%= render 'rooms/room-list', rooms: @rooms %>
@@ -51,7 +52,6 @@
               <%= render 'topics/list', topic: topic %>
             <% end %>
           </div>
-          <%= paginate @topics %>
         </div>
         <div class="book-topics my-content">
           <h2>ブックマークしたスレッド</h2>
@@ -61,26 +61,25 @@
               <%= render 'topics/list', topic: topic %>
             <% end %>
           </div>
-          <%= paginate @books %>
         </div>
-        <div class="tournament my-content">
-          <h2>開催する・した大会</h2>
-          <div class="row row-cols-1 row-cols-md-2">
-            <% @tournaments.each do |tour| %>
-              <%= render 'tournaments/list', tour: tour %>
-            <% end %>
+        <div class="my-content">
+          <div class="tournament">
+            <h2>開催する・した大会</h2>
+            <div>
+              <% @tournaments.each do |tour| %>
+                <%= render 'tournaments/list', tour: tour %>
+              <% end %>
+            </div>
           </div>
-          <%= paginate @tournaments %>
-        </div>
-        <div class="tournament my-content">
-          <h2>参加する・した大会</h2>
-          <div class="row row-cols-1 row-cols-md-2">
-            <% @participants.each do |part| %>
-              <% tour = Tournament.find_by(id: part.tournament_id) %>
-              <%= render 'tournaments/list', tour: tour %>
-            <% end %>
+          <div class="tournament mt-4">
+            <h2>参加する・した大会</h2>
+            <div>
+              <% @participants.each do |part| %>
+                <% tour = Tournament.find_by(id: part.tournament_id) %>
+                <%= render 'tournaments/list', tour: tour %>
+              <% end %>
+            </div>
           </div>
-          <%= paginate @participants %>
         </div>
       </div>
     </div>

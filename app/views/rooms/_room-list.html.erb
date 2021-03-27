@@ -8,7 +8,7 @@
               <%= room.host.name %>
             <% end %>
             <%= room.title %>
-          <button class="btn btn-outline-success btn-sm float-right mt-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= room.id %>" aria-expanded="false" aria-controls="collapse1">
+          <button class="btn btn-outline-success btn-sm float-right mt-3 collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= room.id %>" aria-expanded="false" aria-controls="collapse<%= room.id %>">
             詳細を表示
           </button>
         </h5>
