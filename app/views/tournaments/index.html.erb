@@ -12,8 +12,11 @@
         <%= link_to '開催する', new_tournament_path, class: "btn btn-light" %>
       </div>
       <% @tournaments.each do |tour| %>
+        <!--募集締め切り確認のモーダル-->
         <%= render 'tournaments/close', tournament: tour %>
+        <!--大会参加確認のモーダル-->
         <%= render 'tournaments/participate', tour: tour %>
+        <!--個々の大会の表示-->
         <%= render 'tournaments/list', tour: tour %>
       <% end %>
       <%= paginate @tournaments %>

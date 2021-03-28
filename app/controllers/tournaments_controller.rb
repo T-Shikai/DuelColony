@@ -1,4 +1,6 @@
 class TournamentsController < ApplicationController
+  before_action :authenticate_end_user!
+
   def index
     case params[:devide]
     when "0"
@@ -23,15 +25,14 @@ class TournamentsController < ApplicationController
       flash[:error] = "大会を公開しました"
       redirect_to tournaments_path
     else
-      flash[:error] = "不備あり"
+      flash[:error] = "入力不備があります"
       render :new
     end
   end
 
   def update
     @tournament = Tournament.find(params[:id])
-    case @tournament.status
-    when 0
+    if @tournament.status == 0
       if @tournament.update(status: 1)
         @tournament.participants.each do |part|
           part.update(status: 1)

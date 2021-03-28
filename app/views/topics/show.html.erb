@@ -3,9 +3,12 @@
     <div class="offset-md-2 col-md-8">
       <div class="d-flex">
         <h1><%= @topic.title %></h1>
-        <div class="ml-4 mt-3 book-mark text-white">
-          <%= render 'books/book', topic: @topic %>
-        </div>
+        <% if current_end_user %>
+        <!--ブックマーク-->
+          <div class="ml-4 mt-3 book-mark text-white">
+            <%= render 'books/book', topic: @topic %>
+          </div>
+        <% end %>
       </div>
       <div class="book-mark d-flex align-items-center">
         <%= link_to 'スレッド一覧へ', topics_path, class: "btn btn-outline-light" %>

@@ -11,9 +11,12 @@
         <div class="border-bottom">
           <%= link_to topic.title, topic_path(topic.id), class: "text-dark" %>(<%= topic.posts.count %>)
         </div>
-        <div class="book-mark-<%= topic.id %>">
-          <%= render 'books/book', topic: topic %>
-        </div>
+        <% if current_end_user %>
+          <div class="book-mark-<%= topic.id %>">
+            <!--ブックマーク-->
+            <%= render 'books/book', topic: topic %>
+          </div>
+        <% end %>
       </h5>
       <div class="card-text">
         <%= topic.posts[0].content %>

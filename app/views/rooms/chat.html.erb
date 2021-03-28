@@ -1,4 +1,25 @@
 <div class="container">
+  <!--中断確認モーダル-->
+  <div class="modal quit-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">対戦を中断しますか？</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>相手に確認を取らずに対戦を即終了します。</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+          <%= link_to '中断', accept_room_path(@room), method: :post, class: "btn btn-outline-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <div class="row">
     <h1 class="offset-md-2 col-md-7">
       <%= @room.title %> ：対戦チャットルーム
@@ -19,7 +40,7 @@
           <%= render 'rooms/finish-room', room: @room %>
         </div>
         <div>
-          <%= link_to '中断', accept_room_path(@room), method: :post, class: "btn btn-outline-danger" %>
+          <button class="btn btn-outline-danger quit-btn">中断</button>
         </div>
       <% end %>
     </div>

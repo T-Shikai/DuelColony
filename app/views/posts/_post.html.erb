@@ -1,4 +1,5 @@
 <div class="show-only-new">
+  <!--投稿数が多い場合、表示数切り替え-->
   <% if topic.posts.count > 10 %>
     <% if posts.count == 10 %>
       <span class="text-white">最新10件の投稿のみ表示中：</span><%= link_to '投稿を全て表示', topic_path(topic.id, new_posts: 1), class: "btn btn-outline-light btn-sm" %>
@@ -8,62 +9,66 @@
   <% end %>
 </div>
 <div class="post-list">
-  <table>
-    <% posts.each do |post| %>
-      <div class="card mt-2">
-        <div class="card-header">
-          <%= link_to end_user_path(post.end_user) do %>
-            <%= attachment_image_tag post.end_user, :image, fallback: "no-user-image-icon.jpg", size: "40x40" %> <%= post.end_user.name %>
-          <% end %>
-        </div>
-        <div class="card-body">
-          <%= topic.posts.where("id <= ?", post.id).count %>
-          <% case post.status %>
-          <% when 0 %>
-            <%= simple_format(post.content) %>
-            <div class="post-image">
-              <% if post.image %>
-                <%= attachment_image_tag post, :image, fallback: "no-user-image-icon.jpg", size: "350x350" %>
-              <% end %>
-            </div>
+  <% posts.each do |post| %>
+    <div class="card mt-2">
+      <div class="card-header">
+        <%= link_to end_user_path(post.end_user) do %>
+          <%= attachment_image_tag post.end_user, :image, fallback: "no-user-image-icon.jpg", size: "40x40" %> <%= post.end_user.name %>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <%= topic.posts.where("id <= ?", post.id).count %>
+        <% case post.status %>
+        <% when 0 %>
+          <%= simple_format(post.content) %>
+          <div class="post-image">
+            <% if post.image %>
+              <%= attachment_image_tag post, :image, fallback: "no-user-image-icon.jpg", size: "350x350" %>
+            <% end %>
+          </div>
+          <% if current_end_user %>
             <div class="like-mark-<%= post.id %>">
+              <!--いいね機能-->
               <%= render 'likes/like', post: post %>
             </div>
-            <% if current_end_user == post.end_user %>
-              <%= link_to '投稿を削除', post_path(post), method: :patch, remote: true, class: "btn btn-outline-danger" %>
-            <% end %>
-          <% when 1 %>
-            <div class="text-danger">
-              <%= "この書き込みは管理者によって削除されました" %>
-            </div>
-          <% when 2 %>
-            <div class="text-warning">
-              <%= "この書き込みは投稿者によって削除されました" %>
-            </div>
           <% end %>
-        </div>
+          <% if current_end_user == post.end_user %>
+            <%= link_to '投稿を削除', post_path(post), method: :patch, remote: true, class: "btn btn-outline-danger" %>
+          <% end %>
+        <% when 1 %>
+          <div class="text-danger">
+            <%= "この書き込みは管理者によって削除されました" %>
+          </div>
+        <% when 2 %>
+          <div class="text-warning">
+            <%= "この書き込みは投稿者によって削除されました" %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </table>
-</div>
-<div class="new-post m-4 border-top">
-  <% if posts.count < 200 %>
-    <h1>新規投稿</h1>
-    <%= form_with model: post, url: posts_path, method: :post, remote: true do |f| %>
-      <div class="form-group">
-        <%= f.text_area :content, placeholder: "ここに書き込んでください(1つのスレッドに投稿できるのは200件までです)", size: "x4", class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :image, "画像", class: "text-white pt-2" %>
-        <%= f.attachment_field :image, class: "ml-2 text-white btn btn-outline-light" %>
-        <%= f.hidden_field :topic_id, :value => topic.id %>
-        <%= f.submit "書き込む", class: 'btn btn-success ml-2' %>
-      </div>
-    <% end %>
-  <% else %>
-    <div class="max-posts text-danger">
-      投稿数が200に達したためこれ以上投稿できません。<br />
-      新しいスレッドを作成してください
     </div>
   <% end %>
 </div>
+<% if current_end_user %>
+  <div class="new-post m-4 border-top">
+    <!--新規投稿フォーム-->
+    <% if posts.count < 200 %>
+      <h1>新規投稿</h1>
+      <%= form_with model: post, url: posts_path, method: :post, remote: true do |f| %>
+        <div class="form-group">
+          <%= f.text_area :content, placeholder: "ここに書き込んでください(1つのスレッドに投稿できるのは200件までです)", size: "x4", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :image, "画像", class: "text-white pt-2" %>
+          <%= f.attachment_field :image, class: "ml-2 text-white btn btn-outline-light" %>
+          <%= f.hidden_field :topic_id, :value => topic.id %>
+          <%= f.submit "書き込む", class: 'btn btn-success ml-2' %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="max-posts text-danger">
+        投稿数が200に達したためこれ以上投稿できません。<br />
+        新しいスレッドを作成してください
+      </div>
+    <% end %>
+  </div>
+<% end %>

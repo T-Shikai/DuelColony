@@ -1,8 +1,8 @@
 class ReportsController < ApplicationController
+  before_action :authenticate_end_user!
+
   def new
     @report = Report.new
-    #開発用
-    @reports = Report.all
   end
 
   def create

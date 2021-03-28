@@ -1,4 +1,6 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_end_user!
+
   def index
     case params[:devide]
     when "0"
@@ -33,7 +35,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     @rooms = Room.where.not(status: 4)
     if @room.update(status: 4)
-      render :cancel
+      render :status
     end
   end
 
@@ -43,13 +45,13 @@ class RoomsController < ApplicationController
     if @room.status == 0
       #ゲストによる応募時の処理
       if @room.update(status: 1, guest: current_end_user)
-        render :apply
+        render :status
       end
     else
       #ゲストによる応募キャンセルの処理
       #ホストによる応募拒否の処理
       if @room.update(status: 0, guest: @room.host)
-        render :apply
+        render :status
       end
     end
   end
@@ -60,7 +62,7 @@ class RoomsController < ApplicationController
     if @room.status == 1
       #ホストによる応募承諾の処理
       if @room.update(status: 2)
-        render :accept
+        render :status
       end
     elsif @room.status == 2
       #チャットルーム内での対戦中断処理

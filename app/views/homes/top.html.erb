@@ -2,34 +2,42 @@
 
 <div class="container mb-5">
   <div class="row">
-    <div class="card col shadow-lg top-card">
+    <div class="card col top-card">
       <div class="top-image">
         <%= image_tag 'topic.png', size: '300x270', class: "card-img-top" %>
       </div>
       <div class="card-body top-content">
         <h5 class="card-title border-bottom">掲示板</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-text">掲示板スレッドに書き込みをしたり、自分でスレッドを作成することができます。気になったスレッドをブックマークしてみましょう。（未ログイン状態では閲覧のみ可能です。）</p>
         <%= link_to '一覧へ', topics_path(sort: 0), class: "btn btn-outline-light" %>
       </div>
     </div>
-    <div class="card col offset-md-1 shadow-lg top-card ">
+    <div class="card col offset-md-1 top-card ">
       <div class="top-image">
         <%= image_tag 'match.png', size: '300x270', class: "card-img-top" %>
       </div>
       <div class="card-body top-content">
         <h5 class="card-title border-bottom">対戦</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <%= link_to '一覧へ', rooms_path(sort: 0), class: "btn btn-outline-light" %>
+        <p class="card-text">対戦相手を募集したり、募集に応募することができます。対戦相手とのチャットもでき対戦しながら盛り上がったり意見を交換することもできます。（ご利用にはログインが必要です。）</p>
+        <% if current_end_user %>
+          <%= link_to '一覧へ', rooms_path(sort: 0), class: "btn btn-outline-light" %>
+        <% else %>
+          <%= link_to 'ログイン', new_end_user_session_path, class: "btn btn-light" %>
+        <% end %>
       </div>
     </div>
-    <div class="card col offset-md-1 shadow-lg top-card">
+    <div class="card col offset-md-1 top-card">
       <div class="top-image">
         <%= image_tag 'tournament.png', size: '300x270', class: "card-img-top" %>
       </div>
       <div class="card-body top-content">
         <h5 class="card-title border-bottom">大会</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <%= link_to '一覧へ', tournaments_path, class: "btn btn-outline-light" %>
+        <p class="card-text">大会の開催や大会への参加ができます。大会の結果や告知を掲示板で書き込んでみましょう。<br>（ご利用にはログインが必要です。）</p>
+        <% if current_end_user %>
+          <%= link_to '一覧へ', tournaments_path, class: "btn btn-outline-light" %>
+        <% else %>
+          <%= link_to 'ログイン', new_end_user_session_path, class: "btn btn-light mt-4" %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -1,4 +1,6 @@
 class ParticipantsController < ApplicationController
+  before_action :authenticate_end_user!
+
   def create
     @participant = Participant.new(tournament_params)
     if @participant.save
@@ -6,12 +8,11 @@ class ParticipantsController < ApplicationController
       if @participant.tournament.participants.count > @participant.tournament.max
         @participant.destroy
         flash[:error] = "参加人数がいっぱいです"
-        render :index
+        redirect_back(fallback_location: root_path)
       else
         render :index
       end
     else
-      flash[:error] = @participant.errors.full_messages
       render :index
     end
   end

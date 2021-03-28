@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_end_user!
+
   def create
     message = Message.new(message_params)
     @room = message.room
@@ -21,6 +23,7 @@ class MessagesController < ApplicationController
   end
 
   def update
+    メッセージ削除表示
     message = Message.find(params[:id])
     @room = message.room
     @messages = @room.messages

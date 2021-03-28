@@ -1,14 +1,17 @@
 class TopicsController < ApplicationController
+  before_action :authenticate_end_user!, {except: [:index, :search, :show]}
+
   def index
     case params[:sort]
     when "0"
-      sorted_topics = Topic.where(is_private: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
+      # 最新投稿が新しい順
+      sorted_topics = Topic.where(is_deleted: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
     when "1"
-      sorted_topics = Topic.where(is_private: false).sort{|a,b| b.posts.count <=> a.posts.count}
+      sorted_topics = Topic.where(is_deleted: false).sort{|a,b| b.posts.count <=> a.posts.count}
     when "2"
-      sorted_topics = Topic.where(is_private: false).sort{|a,b| b.books.count <=> a.books.count}
+      sorted_topics = Topic.where(is_deleted: false).sort{|a,b| b.books.count <=> a.books.count}
     else
-      sorted_topics = Topic.where(is_private: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
+      sorted_topics = Topic.where(is_deleted: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
     end
     @topics = Kaminari.paginate_array(sorted_topics).page(params[:page]).per(6)
   end
@@ -18,31 +21,6 @@ class TopicsController < ApplicationController
       .where("title LIKE ?", "%#{params[:content]}%")
       .order('id desc')
     render :index
-  end
-
-  def new
-    @topic = Topic.new
-    @post = Post.new
-  end
-
-  def create
-    @topic = Topic.new(topic_params)
-    @topic.end_user = current_end_user
-    @post = Post.new(post_params)
-    @post.end_user = current_end_user
-    if @topic.save
-      @post.topic_id = @topic.id
-      if @post.save
-        redirect_to topics_path
-      else
-        @topic.destroy
-        flash[:error] = '書き込み失敗'
-        render :new
-      end
-    else
-      flash[:error] = 'スレッド作成失敗'
-      render :new
-    end
   end
 
   def show
@@ -58,10 +36,36 @@ class TopicsController < ApplicationController
     end
   end
 
+  def new
+    @topic = Topic.new
+    @post = Post.new
+  end
+
+  def create
+    # スレッドと最初の投稿を同時に作成
+    @topic = Topic.new(topic_params)
+    @topic.end_user = current_end_user
+    @post = Post.new(post_params)
+    @post.end_user = current_end_user
+    if @topic.save
+      @post.topic_id = @topic.id
+      if @post.save
+        redirect_to topics_path
+      else
+        @topic.destroy
+        flash[:error] = 'スレッドが作成できませんでした。'
+        render :new
+      end
+    else
+      flash[:error] = 'スレッドが作成できませんでした。'
+      render :new
+    end
+  end
+
   private
 
   def topic_params
-    params.require(:topic).permit(:title, :is_private)
+    params.require(:topic).permit(:title)
   end
 
   def post_params

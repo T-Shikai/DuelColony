@@ -4,5 +4,5 @@ class Post < ApplicationRecord
   has_many :likes
   attachment :image
 
-  validates :content, presence: true
+  validates :content, {presence: true, length: {maximun: 500}}
 end

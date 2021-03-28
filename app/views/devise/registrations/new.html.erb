@@ -3,8 +3,8 @@
     <div class="offset-md-3 col-md-5 text-white">
       <h1>新規登録</h1>
 
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+      <%= form_with model: @end_user, url: end_user_registration_path, local: true do |f| %>
+        <!--<%= render "devise/shared/error_messages", resource: resource %>-->
 
         <div class="field">
           <%= f.label :ユーザー名 %><br />

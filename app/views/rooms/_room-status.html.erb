@@ -7,7 +7,9 @@
     <% end %>
   <% when 1 %>
     <% if room.host == current_end_user %>
-      応募あり <%= link_to '承認', accept_room_path(room), method: :post, remote: true, class: "btn btn-outline-primary" %> <%= link_to '却下', apply_room_path(room), method: :post, remote: true, class: "btn btn-outline-danger" %>
+      <%= attachment_image_tag room.guest, :image, fallback: "no-user-image-icon.jpg", size: "35x35" %>
+      <%= room.guest.name %>さんが応募しています!
+      <%= link_to '承認', accept_room_path(room), method: :post, remote: true, class: "btn btn-outline-primary" %> <%= link_to '却下', apply_room_path(room), method: :post, remote: true, class: "btn btn-outline-danger" %>
     <% elsif room.guest == current_end_user %>
       <%= link_to '応募をキャンセルする', apply_room_path(room), method: :post, remote: true, class: "btn btn-outline-danger" %>
     <% else %>
@@ -15,7 +17,7 @@
     <% end %>
   <% when 2 %>
     <% if room.host == current_end_user || room.guest == current_end_user %>
-  　   対戦中 <%= link_to 'チャットへ', chat_room_path(room), class: "btn btn-outline-primary" %>
+  　   対戦中！ <%= link_to 'チャットへ', chat_room_path(room), class: "btn btn-outline-primary" %>
   　<% else %>
   　   募集終了
   　<% end %>

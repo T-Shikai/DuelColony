@@ -3,7 +3,7 @@
     <div class="offset-md-3 col-md-5 text-white">
       <h1>ログイン</h1>
 
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= form_with model: @end_user, url: end_user_session_path, local: true do |f| %>
         <div class="field">
           <%= f.label :メールアドレス %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>

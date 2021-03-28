@@ -53,14 +53,22 @@ $(function(){
   });
 });
 
+// 大会参加・参加締め切りを確認するモーダル表示
 $(function(){
   $('.close-up-btn').click(function(){
     $('.close-up-modal').modal('show')
-  })
+  });
   $('.participate-btn').click(function(){
     $('.participate-modal').modal('show')
-  })
+  });
   $('.part-confirm-btn').click(function(){
     $('.participate-modal').modal('hide')
-  })
+  });
+});
+
+// チャット中断を確認するモーダル表示
+$(function(){
+  $('.quit-btn').click(function(){
+    $('.quit-modal').modal('show')
+  });
 });

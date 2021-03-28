@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_end_user!
+
   def create
     post = Post.new(post_params)
     @topic = post.topic
@@ -8,12 +10,13 @@ class PostsController < ApplicationController
       @posts = @topic.posts.order("id desc").limit(10).sort{|a,b| a.id <=> b.id}
       render :index
     else
-      flash[:error] = '書き込み失敗'
+      flash[:error] = '書き込みができませんでした。'
       redirect_back(fallback_location: root_path)
     end
   end
 
   def update
+    # 「削除されました」と表示
     post = Post.find(params[:id])
     @topic = post.topic
     @posts = @topic.posts
