@@ -1,5 +1,4 @@
-<h1 class="text-white">DuelColonyへようこそ！</h1>
-
+<h1 class="text-white ml-3 mb-2">DuelColonyへようこそ！</h1>
 <div class="container mb-5">
   <div class="row">
     <div class="card col top-card">
@@ -34,7 +33,7 @@
         <h5 class="card-title border-bottom">大会</h5>
         <p class="card-text">大会の開催や大会への参加ができます。大会の結果や告知を掲示板で書き込んでみましょう。<br>（ご利用にはログインが必要です。）</p>
         <% if current_end_user %>
-          <%= link_to '一覧へ', tournaments_path, class: "btn btn-outline-light" %>
+          <%= link_to '一覧へ', tournaments_path, class: "btn btn-outline-light mt-4" %>
         <% else %>
           <%= link_to 'ログイン', new_end_user_session_path, class: "btn btn-light mt-4" %>
         <% end %>
