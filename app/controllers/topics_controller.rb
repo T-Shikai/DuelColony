@@ -1,25 +1,25 @@
 class TopicsController < ApplicationController
-  before_action :authenticate_end_user!, {except: [:index, :search, :show]}
+  before_action :authenticate_end_user!, { except: [:index, :search, :show] }
 
   def index
     case params[:sort]
     when "0"
       # 最新投稿が新しい順
-      sorted_topics = Topic.where(is_deleted: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
+      sorted_topics = Topic.where(is_deleted: false).sort { |a, b| b.posts[-1].created_at <=> a.posts[-1].created_at }
     when "1"
-      sorted_topics = Topic.where(is_deleted: false).sort{|a,b| b.posts.count <=> a.posts.count}
+      sorted_topics = Topic.where(is_deleted: false).sort { |a, b| b.posts.count <=> a.posts.count }
     when "2"
-      sorted_topics = Topic.where(is_deleted: false).sort{|a,b| b.books.count <=> a.books.count}
+      sorted_topics = Topic.where(is_deleted: false).sort { |a, b| b.books.count <=> a.books.count }
     else
-      sorted_topics = Topic.where(is_deleted: false).sort{|a,b| b.posts[-1].created_at <=> a.posts[-1].created_at}
+      sorted_topics = Topic.where(is_deleted: false).sort { |a, b| b.posts[-1].created_at <=> a.posts[-1].created_at }
     end
     @topics = Kaminari.paginate_array(sorted_topics).page(params[:page]).per(6)
   end
 
   def search
-    @topics = Topic.page(params[:page]).per(6)
-      .where("title LIKE ?", "%#{params[:content]}%")
-      .order('id desc')
+    @topics = Topic.page(params[:page]).per(6).
+      where("title LIKE ?", "%#{params[:content]}%").
+      order('id desc')
     render :index
   end
 
@@ -28,11 +28,11 @@ class TopicsController < ApplicationController
     @post = Post.new
     case params[:new_posts]
     when "0"
-      @posts = @topic.posts.order("id desc").limit(10).sort{|a,b| a.id <=> b.id}
+      @posts = @topic.posts.order("id desc").limit(10).sort { |a, b| a.id <=> b.id }
     when "1"
       @posts = @topic.posts
     else
-      @posts = @topic.posts.order("id desc").limit(10).sort{|a,b| a.id <=> b.id}
+      @posts = @topic.posts.order("id desc").limit(10).sort { |a, b| a.id <=> b.id }
     end
   end
 
@@ -71,5 +71,4 @@ class TopicsController < ApplicationController
   def post_params
     params.require(:post).permit(:content, :image)
   end
-
 end

@@ -17,5 +17,4 @@ class ApplicationController < ActionController::Base
   def notification
     @notice = current_end_user.passive_notifications.where(checked: false).order('id desc')[0]
   end
-
 end

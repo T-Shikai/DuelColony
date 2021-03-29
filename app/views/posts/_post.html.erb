@@ -26,15 +26,17 @@
               <%= attachment_image_tag post, :image, fallback: "no-user-image-icon.jpg", size: "350x350" %>
             <% end %>
           </div>
-          <% if current_end_user %>
-            <div class="like-mark-<%= post.id %>">
-              <!--いいね機能-->
-              <%= render 'likes/like', post: post %>
-            </div>
-          <% end %>
-          <% if current_end_user == post.end_user %>
-            <%= link_to '投稿を削除', post_path(post), method: :patch, remote: true, class: "btn btn-outline-danger" %>
-          <% end %>
+          <div class="d-flex">
+            <% if current_end_user %>
+              <div class="like-mark-<%= post.id %>">
+                <!--いいね機能-->
+                <%= render 'likes/like', post: post %>
+              </div>
+            <% end %>
+            <% if current_end_user == post.end_user %>
+              <%= link_to '投稿を削除', post_path(post), method: :patch, remote: true, class: "btn btn-outline-danger btn-sm ml-3" %>
+            <% end %>
+          </div>
         <% when 1 %>
           <div class="text-danger">
             <%= "この書き込みは管理者によって削除されました" %>

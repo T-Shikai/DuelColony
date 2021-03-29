@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
     @messages = @room.messages
     @message = Message.new
     if message.save
-      #通知
+      # 通知
       current_end_user == @room.host ? @visited = @room.guest : @visited = @room.host
       @notice = current_end_user.active_notifications.new(
         room_id: @room.id,
@@ -23,7 +23,7 @@ class MessagesController < ApplicationController
   end
 
   def update
-    メッセージ削除表示
+    # メッセージ削除表示
     message = Message.find(params[:id])
     @room = message.room
     @messages = @room.messages
@@ -39,5 +39,4 @@ class MessagesController < ApplicationController
   def message_params
     params.require(:message).permit(:content, :room_id, :end_user_id)
   end
-
 end

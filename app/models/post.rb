@@ -4,6 +4,6 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   attachment :image
 
-  validates :content, {presence: true, length: {maximum: 500}}
+  validates :content, { presence: true, length: { maximum: 500 } }
   validates :status, presence: true
 end

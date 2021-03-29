@@ -49,9 +49,9 @@
                   <% end %>
                 </div>
                 <div class="btn-group offset-md-1" role="group">
-                  <%= link_to '出席', participant_path(attend: 2), method: :patch, class:"btn btn-outline-dark btn-sm" %>
-                  <%= link_to '欠席（連絡あり）', participant_path(attend: 3), method: :patch, class:"btn btn-outline-dark btn-sm" %>
-                  <%= link_to '無断欠席', participant_path(attend: 4), method: :patch, class:"btn btn-outline-dark btn-sm" %>
+                  <%= link_to '出席', participant_path(part, attend: 2), method: :patch, class:"btn btn-outline-dark btn-sm" %>
+                  <%= link_to '欠席（連絡あり）', participant_path(part, attend: 3), method: :patch, class:"btn btn-outline-dark btn-sm" %>
+                  <%= link_to '無断欠席', participant_path(part, attend: 4), method: :patch, class:"btn btn-outline-dark btn-sm" %>
                 </div>
               </div>
             <% end %>

@@ -6,7 +6,7 @@ class TournamentsController < ApplicationController
     when "0"
       @tournaments = Tournament.page(params[:page]).per(10).where(status: 0).order('id desc')
     when "1"
-      @tournaments = Tournament.page(params[:page]).per(10).where(status: [1,2]).order('id desc')
+      @tournaments = Tournament.page(params[:page]).per(10).where(status: [1, 2]).order('id desc')
     when "2"
       @tournaments = current_end_user.tournaments.page(params[:page]).per(10).order('id desc')
     else
@@ -57,7 +57,7 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
     if @tournament.update(finish_params)
       @tournament.update(status: 2)
-      #出席未確定の参加者を全員出席扱いにする
+      # 出席未確定の参加者を全員出席扱いにする
       @tournament.participants.each do |part|
         if part.status == 1
           part.update(status: 2)
@@ -66,7 +66,6 @@ class TournamentsController < ApplicationController
       flash[:error] = "大会が終了しました"
       redirect_to tournaments_path
     end
-
   end
 
   def destroy

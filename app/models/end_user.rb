@@ -18,9 +18,8 @@ class EndUser < ApplicationRecord
   has_many :passive_notifications, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
 
   validates :email, presence: true
-  validates :name, {presence: true, length: {maximum: 30}}
-  validates :introduction, length: {maximum: 2000}
+  validates :name, { presence: true, length: { maximum: 30 } }
+  validates :introduction, length: { maximum: 2000 }
   validates :status, presence: true
   attachment :image
-
 end
