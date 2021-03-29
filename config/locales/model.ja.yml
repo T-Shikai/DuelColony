@@ -1,0 +1,61 @@
+ja:
+  activerecord:
+    models:
+      admin: "管理者"
+      book: "ブックマーク（スレッドの）"
+      end_user: "会員"
+      like: "いいね（投稿の）"
+      message: "チャットメッセージ"
+      notice: "通知"
+      participant: "大会参加者"
+      post: "投稿（スレッドの）"
+      report: "問い合わせ"
+      room: "対戦"
+      topic: "スレッド"
+      tournament: "大会"
+    attributes:
+      admin:
+        notion: "ご利用上の注意"
+      end_user:
+        introductiom: "自己紹介文"
+        status: "規制ステータス"
+      message:
+        content: "内容"
+        is_deleted: "消去フラグ"
+      notice:
+        visitor: "通知を送った会員"
+        visited: "通知を受けた会員"
+        checked: "既読フラグ"
+      participant:
+        status: "参加ステータス"
+      post:
+        content: "内容"
+        status: "表示ステータス"
+      report:
+        content: "内容"
+      room:
+        content: "ルール・詳細"
+        status: "対戦状況ステータス"
+        host_id: "募集者"
+        guest_id: "応募者"
+        finishing: "終了合意ステータス"
+      topic:
+        is_deleted: "削除フラグ"
+        status: "規制ステータス"
+      tournament:
+        content: "ルール・詳細"
+        result: "大会結果"
+        max: "参加可能人数"
+        status: "状況ステータス"
+  attributes:
+    title: "タイトル"
+    image: "画像"
+    created_at: "追加日時"
+    updated_at: "更新日時"
+    end_user: "会員"
+    message: "チャットメッセージ"
+    participant: "大会参加者"
+    post: "投稿"
+    room: "対戦"
+    topic: "スレッド"
+    tournament: "大会"

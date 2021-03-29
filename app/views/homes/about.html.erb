@@ -1,1 +1,12 @@
-<h1>アバウトページ</h1>
+<div class="container">
+  <div class="row">
+    <div class="offset-md-2 col-md-8 text-white">
+      <h1 class="ml-3 mb-2">DuelColony ご利用上の注意</h1>
+      <div class="border rounded">
+        <% if @admin.notion %>
+          <%= simple_format(@admin.notion) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

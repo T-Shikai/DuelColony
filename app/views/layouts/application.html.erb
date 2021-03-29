@@ -60,11 +60,11 @@
         </div>
       </div>
     </nav>
-    <div class="admins">
+    <div class="admins text-center bg-white">
       <% if admin_signed_in? %>
-        <%= link_to '管理者ログアウト', destroy_admin_session_path, method: :delete %>
-      <% else %>
-        <%= link_to '管理者ログイン', new_admin_session_path %>
+        <h2 class="text-secondary">管理者としてログイン中です</h2>
+        <%= link_to 'サイト管理ページへ', rails_admin_path, class: "btn btn-outline-success btn-sm mb-1" %>
+        <%= link_to '管理者アカウントからログアウト', destroy_admin_session_path, method: :delete %>
       <% end %>
     </div>
     <div class="chat-toast">
@@ -100,7 +100,7 @@
       <p class="text-center text-white p-4">DuelColony</p>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </body>
