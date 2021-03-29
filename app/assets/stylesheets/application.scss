@@ -21,14 +21,12 @@
  color: white;
 }
 .top-card{
- background-image: url(elec.jpeg);
+ background-image: image-url("elec.jpeg");
  length: 600px;
 }
 
 body{
- background-image: url(honeycomb.jpeg);
- // background-size: cover;
- // background-color: #444444;
+ background-image: image-url("honeycomb.jpeg");
 }
 
 h1,h2{
