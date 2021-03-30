@@ -30,6 +30,7 @@
   https://docs.google.com/spreadsheets/d/1NKIpl6NGiSD58GIY2Q8lod7JUqMmZc6FqADNvEsfR9I/edit?usp=sharing
 
 - アプリケーション詳細設計（追加予定）
+  https://drive.google.com/file/d/123GZMtrzJSuI8nj4pqxleYmPLE6NSWHC/view?usp=sharing
 
 ## 機能一覧
 https://docs.google.com/spreadsheets/d/14m2Q98UEq8ni9EVxGNW_m8STik69RFVb-Bv5RZs1B3s/edit#gid=162019153
@@ -41,5 +42,5 @@ https://docs.google.com/spreadsheets/d/14m2Q98UEq8ni9EVxGNW_m8STik69RFVb-Bv5RZs1
 - JSライブラリ：jQuery
 - IDE：Cloud9
 
-## 使用素材
-順次追加予定
+<!--## 使用素材-->
+<!--順次追加予定-->

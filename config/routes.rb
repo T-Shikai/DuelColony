@@ -10,11 +10,11 @@ Rails.application.routes.draw do
   resources :end_users, only: [:show, :edit, :update]
 
   get 'topics/search' => 'topics#search', as: 'search_topic'
-  resources :topics do
+  resources :topics, except: [:edit, :update, :destroy] do
     resource :books, only: [:create, :destroy]
   end
 
-  resources :posts do
+  resources :posts, only: [:create, :update] do
     resource :likes, only: [:create, :destroy]
   end
 
@@ -23,14 +23,14 @@ Rails.application.routes.draw do
   post 'rooms/accept/:id' => 'rooms#accept', as: 'accept_room'
   get 'rooms/chat/:id' => 'rooms#chat', as: 'chat_room'
   post 'rooms/finish/:id' => 'rooms#finish', as: 'finish_room'
-  resources :rooms
+  resources :rooms, only: [:index, :new, :create]
 
   resources :messages, only: [:create, :update]
 
   patch 'tournaments/update_info/:id' => 'tournaments#update_info', as: 'info_tournament'
   post 'tournaments/finish/:id' => 'tournaments#finish', as: 'finish_tournament'
   get 'tournaments/result/:id' => 'tournaments#result', as: 'result_tournament'
-  resources :tournaments
+  resources :tournaments, except: [:edit]
 
   resources :participants, only: [:create, :destroy, :update]
 
