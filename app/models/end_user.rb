@@ -20,6 +20,6 @@ class EndUser < ApplicationRecord
   validates :email, presence: true
   validates :name, { presence: true, length: { maximum: 30 } }
   validates :introduction, length: { maximum: 2000 }
-  validates :status, presence: true
+  validates :status, { presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 2 } }
   attachment :image
 end

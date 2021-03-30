@@ -5,5 +5,5 @@ class Post < ApplicationRecord
   attachment :image
 
   validates :content, { presence: true, length: { maximum: 500 } }
-  validates :status, presence: true
+  validates :status, { presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 2 } }
 end

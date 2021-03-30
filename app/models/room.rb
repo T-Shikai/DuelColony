@@ -6,5 +6,5 @@ class Room < ApplicationRecord
 
   validates :title, { presence: true, length: { maximum: 80 } }
   validates :content, { presence: true, length: { maximum: 1000 } }
-  validates :status, presence: true
+  validates :status, { presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 4 } }
 end

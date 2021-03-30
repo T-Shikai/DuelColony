@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :authenticate_end_user!
+  before_action :ban_deleted_user
 
   def create
     @topic = Topic.find(params[:topic_id])

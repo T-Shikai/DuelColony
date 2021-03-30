@@ -1,5 +1,7 @@
 class ParticipantsController < ApplicationController
   before_action :authenticate_end_user!
+  before_action :ban_deleted_user
+  before_action :ban_ristricted_user
 
   def create
     @participant = Participant.new(tournament_params)

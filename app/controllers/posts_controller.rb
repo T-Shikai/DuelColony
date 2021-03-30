@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_end_user!
+  before_action :ban_deleted_user
 
   def create
     post = Post.new(post_params)

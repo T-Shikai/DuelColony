@@ -1,5 +1,6 @@
 class TopicsController < ApplicationController
   before_action :authenticate_end_user!, { except: [:index, :search, :show] }
+  before_action :ban_deleted_user
 
   def index
     case params[:sort]
@@ -71,4 +72,5 @@ class TopicsController < ApplicationController
   def post_params
     params.require(:post).permit(:content, :image)
   end
+
 end

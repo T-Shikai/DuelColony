@@ -1,5 +1,7 @@
 class TournamentsController < ApplicationController
   before_action :authenticate_end_user!
+  before_action :ban_deleted_user
+  before_action :ban_ristricted_user
 
   def index
     case params[:devide]

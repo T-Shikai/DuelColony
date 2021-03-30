@@ -39,7 +39,9 @@
           <div class="row row-cols-1 row-cols-md-2">
             <% @books.each do |book| %>
               <% topic = book.topic %>
-              <%= render 'topics/list', topic: topic %>
+              <% if topic.is_deleted == false %>
+                <%= render 'topics/list', topic: topic %>
+              <% end %>
             <% end %>
           </div>
         </div>

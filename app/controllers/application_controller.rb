@@ -17,4 +17,19 @@ class ApplicationController < ActionController::Base
   def notification
     @notice = current_end_user.passive_notifications.where(checked: false).order('id desc')[0]
   end
+
+  def ban_deleted_user
+    if current_end_user && current_end_user.status == 2
+      flash[:error] = "利用停止アカウントです。"
+      redirect_to root_path
+    end
+  end
+
+  def ban_ristricted_user
+    if current_end_user && current_end_user.status == 1
+      flash[:error] = "機能制限中のアカウントです。"
+      redirect_to root_path
+    end
+  end
+
 end
