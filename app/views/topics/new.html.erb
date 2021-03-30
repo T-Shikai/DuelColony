@@ -14,10 +14,6 @@
           <%= f.label :title, "タイトル" %>
           <%= f.text_field :title, placeholder: "タイトル", class: "form-control" %>
         </div>
-        <!--<div>-->
-        <!--  <label><%= f.radio_button :is_private, false ,checked: true %>公開スレッド</label><br/>-->
-        <!--  <label><%= f.radio_button :is_private, true %>非公開スレッド</label><br/>-->
-        <!--</div>-->
         <div class="first-post">
           <%= fields_for @post do |e| %>
             <div class="form-group">
