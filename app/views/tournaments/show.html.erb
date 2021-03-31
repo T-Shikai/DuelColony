@@ -25,11 +25,14 @@
               </div>
             <% end %>
           </div>
-          <% @tournament.participants.each do |part| %>
-            <%= part.end_user.name %>
-            <%= link_to 'この参加者をキャンセル', participants_path(part), method: :delete, class: "btn btn-outline-danger" %>
-          <% end %>
-          <button class="btn btn-outline-warning close-up-btn">募集を締切る</button>
+          <div class="text-white">
+            <% @tournament.participants.each do |part| %>
+              <%= attachment_image_tag(part.end_user, :image, fallback: "no-user-image-icon.jpg", size: "50x50" ) %>
+              <%= part.end_user.name %>
+              <%= link_to 'この参加者をキャンセル', participant_path(part, redirect: 1), method: :delete, class: "btn btn-outline-danger" %>
+            <% end %>
+          </div>
+          <button class="btn btn-outline-warning close-up-btn mt-2">募集を締切る</button>
         <% when 1 %>
           <div class="list-group">
             <% @tournament.participants.each do |part| %>

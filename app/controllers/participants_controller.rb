@@ -23,7 +23,7 @@ class ParticipantsController < ApplicationController
     @participant = Participant.find(params[:id])
     @tournament = @participant.tournament
     if @participant.destroy
-      render :index
+      params[:redirect] ? redirect_back(fallback_location: root_path) : (render :index)
     end
   end
 
