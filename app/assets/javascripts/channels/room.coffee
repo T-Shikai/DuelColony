@@ -1,4 +1,3 @@
-import consumer from "./consumer"
 App.room = App.cable.subscriptions.create "RoomChannel",
   connected: ->
     # Called when the subscription is ready for use on the server

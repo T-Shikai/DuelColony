@@ -10,14 +10,15 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
 //= require rails-ujs
 //= require activestorage
+//= require jquery
+//= require jquery_ujs
 //= require turbolinks
-//= require_tree.
+//= require_tree .
 /* global $ */
 document.addEventListener("turbolinks:load", function(){
-  // チャットルームのアイコンホバー時名前表示
+  // チャットルームのアイコンホバー名前表示
   $(function(){
     $('[data-toggle="tooltip"]').hover(
       function(){
