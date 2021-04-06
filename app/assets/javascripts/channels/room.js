@@ -1,4 +1,4 @@
-App.room = App.cable.subscriptions.create("RoomChannel", {
+const appRoom = App.cable.subscriptions.create("RoomChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -8,10 +8,19 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
+    const messages = document.getElementById('messages');
+    messages.insertAdjacentHTML('beforeend', data['message']);
   },
 
   speak: function(message) {
     return this.perform('speak', {message: message});
   }
 });
+
+window.addEventListener("keypress", function(e) {
+  if (e.keyCode === 13) {
+    appRoom.speak(e.target.value);
+    e.target.value = '';
+    e.preventDefault();
+  }
+})

@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="row">
     <h1 class="offset-md-2 col-md-7">
       <%= @room.title %> ：対戦チャットルーム
@@ -29,7 +29,7 @@
     </h1>
   </div>
   <div class="row">
-    <div class="chat offset-md-2 col-md-8">
+    <div class="chat offset-md-2 col-md-8" id="messages">
       <%= render 'messages/message', room: @room, messages: @messages, message: @message %>
     </div>
   </div>
