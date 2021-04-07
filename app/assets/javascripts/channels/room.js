@@ -8,8 +8,7 @@ const appRoom = App.cable.subscriptions.create("RoomChannel", {
   },
 
   received(data) {
-    const messages = document.getElementById('messages');
-    messages.insertAdjacentHTML('beforeend', data['message']);
+    return alert(data['message']);
   },
 
   speak: function(message) {
